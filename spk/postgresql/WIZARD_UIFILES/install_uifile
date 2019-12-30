@@ -1,11 +1,11 @@
 [{
-    "step_title": "Setting PostgreSQL access",
+    "step_title": "Setting PostgreSQL parameters",
     "items": [{
         "type": "textfield",
         "desc": "User's login. Defaults to pgadmin",
         "subitems": [{
             "key": "wizard_pg_username",
-            "desc": "Username",
+            "desc": "Login",
             "defaultValue": "pgadmin"
         }]
     }, {
@@ -16,5 +16,14 @@
             "desc": "Password",
             "defaultValue": "changepassword"
         }]
+    }, {
+        "type": "textfield",
+        "desc": "Server Port. Defaults to 5433 (5432 already used by Synology)",
+        "subitems": [{
+            "key": "wizard_pg_port",
+            "desc": "Server Port",
+            "defaultValue": "5433"
+        }]
     }]
 }]
+

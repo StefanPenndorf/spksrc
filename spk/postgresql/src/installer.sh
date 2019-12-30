@@ -10,6 +10,14 @@ DAEMON_USER="`echo ${SYNOPKG_PKGNAME} | awk {'print tolower($_)'}`"
 DAEMON_ID="${SYNOPKG_PKGNAME} daemon user"
 DAEMON_PASS="`openssl rand 12 -base64 2>/dev/null`"
 
+DATABASE_DIR="${SYNOPKG_PKGDEST}/share/data"
+CFG_FILE="${DATABASE_DIR}/postgresql.conf"
+PATH="${SYNOPKG_PKGDEST}:${PATH}"
+SERVICE_COMMAND="${SYNOPKG_PKGDEST}/bin/pg_ctl -D ${DATABASE_DIR} -l ${DATABASE_DIR}/logfile start"
+
+PG_USERNAME=${wizard_pg_username:=pgadmin}
+PG_PASSWORD=${wizard_pg_password:=changepassword}
+PG_PORT=${wizard_pg_port:=5433}
 
 preinst ()
 {
@@ -32,24 +40,33 @@ postinst ()
   # change owner of folder tree
   chown -R ${DAEMON_USER}:users ${SYNOPKG_PKGDEST}
 
-  su - ${DAEMON_USER} -s /bin/sh -c "${SYNOPKG_PKGDEST}/bin/initdb -D ${SYNOPKG_PKGDEST}/var/data"
+  # Init database
+  su - ${DAEMON_USER} -s /bin/sh -c "${SYNOPKG_PKGDEST}/bin/initdb -D ${DATABASE_DIR}"
 
-  # change default port to 5433 in order to avoid conflict with existing postgres 9
-  su - ${DAEMON_USER} -s /bin/sh -c "sed -i -e 's/#port = 5432/port=5433/g' ${SYNOPKG_PKGDEST}/var/data/postgresql.conf"
+  # Change default port
+  su - ${DAEMON_USER} -s /bin/sh -c "sed -i -e 's/#port = 5432/port=${PG_PORT}/g' ${CFG_FILE}"
 
-  su - ${DAEMON_USER} -s /bin/sh -c "${SYNOPKG_PKGDEST}/bin/pg_ctl -D ${SYNOPKG_PKGDEST}/var/data -l ${SYNOPKG_PKGDEST}/var/logfile start"
+  # Change listen addresses
+  su - ${DAEMON_USER} -s /bin/sh -c "sed -i -e \"s/#listen_addresses = 'localhost'/listen_addresses = '*'/g\" ${CFG_FILE}"
 
-  # create role in order to have a customized user/password
-  su - ${DAEMON_USER} -s /bin/sh -c "${SYNOPKG_PKGDEST}/bin/psql -p 5433 -d postgres -c \"CREATE ROLE ${wizard_pg_username:=pgadmin} PASSWORD '${wizard_pg_password:=changepassword}' SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN; \""
+  # Start server
+  su - ${DAEMON_USER} -s /bin/sh -c "${SYNOPKG_PKGDEST}/bin/pg_ctl -D ${DATABASE_DIR} -l ${DATABASE_DIR}/logfile start"
 
-  su - ${DAEMON_USER} -s /bin/sh -c "${SYNOPKG_PKGDEST}/bin/pg_ctl -D ${SYNOPKG_PKGDEST}/var/data stop"
+  # Update existing role
+  su - ${DAEMON_USER} -s /bin/sh -c "${SYNOPKG_PKGDEST}/bin/psql -p ${PG_PORT} -d postgres -c \"ALTER ROLE \\\"${DAEMON_USER}\\\" WITH ENCRYPTED PASSWORD '${PG_PASSWORD}'; \""
+
+  # Create new role
+  su - ${DAEMON_USER} -s /bin/sh -c "${SYNOPKG_PKGDEST}/bin/psql -p ${PG_PORT} -d postgres -c \"CREATE ROLE ${PG_USERNAME} ENCRYPTED PASSWORD '${PG_PASSWORD}' SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN REPLICATION BYPASSRLS; \""
+
+  # Stop server
+  su - ${DAEMON_USER} -s /bin/sh -c "${SYNOPKG_PKGDEST}/bin/pg_ctl -D ${DATABASE_DIR} stop"
 
   exit 0
 }
 
 preuninst ()
 {
-    exit 0
+  exit 0
 }
 
 postuninst ()
