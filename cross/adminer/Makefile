@@ -1,5 +1,5 @@
 PKG_NAME = adminer
-PKG_VERS = 4.2.5
+PKG_VERS = 4.7.6
 PKG_EXT = tar.gz
 PKG_DIST_NAME = v$(PKG_VERS).$(PKG_EXT)
 PKG_DIST_FILE = $(PKG_NAME)-$(PKG_VERS).$(PKG_EXT)
@@ -21,8 +21,7 @@ include ../../mk/spksrc.cross-cc.mk
 .PHONY: myInstall
 myInstall:
 	(cd $(WORK_DIR)/$(PKG_DIR) && php compile.php && mv $(PKG_NAME)-$(PKG_VERS).php index.php)
-	mkdir -p $(STAGING_INSTALL_PREFIX)/share/$(PKG_NAME)
-	(cd $(WORK_DIR)/$(PKG_DIR) && wget -O $(PKG_NAME).css https://raw.githubusercontent.com/vrana/adminer/master/designs/nette/adminer.css)
-	tar -cf - -C $(WORK_DIR)/$(PKG_DIR) ./index.php | tar -xf - -C $(STAGING_INSTALL_PREFIX)/share/$(PKG_NAME)
-	tar -cf - -C $(WORK_DIR)/$(PKG_DIR) ./$(PKG_NAME).css | tar -xf - -C $(STAGING_INSTALL_PREFIX)/share/$(PKG_NAME)
-	echo 'Order Deny,Allow\nDeny from all\nAllow from 192.168.0.0/16 172.16.0.0/12 10.0.0.0/8' > $(STAGING_INSTALL_PREFIX)/share/$(PKG_NAME)/.htaccess
+	mkdir $(STAGING_INSTALL_PREFIX)/web/
+	cp $(WORK_DIR)/$(PKG_DIR)/index.php $(STAGING_INSTALL_PREFIX)/web/index.php
+	cp $(WORK_DIR)/$(PKG_DIR)/designs/rmsoft_blue/adminer.css $(STAGING_INSTALL_PREFIX)/web/adminer.css
+

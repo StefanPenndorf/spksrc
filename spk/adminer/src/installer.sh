@@ -2,59 +2,45 @@
 
 # Package
 PACKAGE="adminer"
-DNAME="Adminer"
-SHORTNAME="adminer"
-PACKAGE_NAME="com.synocommunity.packages.${SHORTNAME}"
 
 # Others
-INSTALL_DIR="/usr/local/${PACKAGE}"
+INSTALL_DIR=${SYNOPKG_PKGDEST}/web/
 WEB_DIR="/var/services/web"
-TMP_DIR="${SYNOPKG_PKGDEST}/../../@tmp"
-BUILDNUMBER="$(/bin/get_key_value /etc.defaults/VERSION buildnumber)"
-
-USER="$([ "${BUILDNUMBER}" -ge "4418" ] && echo -n http || echo -n nobody)"
 
 preinst ()
 {
-    exit 0
+     exit 0
 }
 
 postinst ()
 {
-    # Link
-    ln -s ${SYNOPKG_PKGDEST} ${INSTALL_DIR}
+     # Web directory
+     cp -R ${INSTALL_DIR} ${WEB_DIR}/adminer-web/
 
-    # Install the web interface
-    cp -pR ${INSTALL_DIR}/share/${SHORTNAME} ${WEB_DIR}
-
-    # Fix permissions
-    chown -R ${USER} ${WEB_DIR}/${SHORTNAME}
-
-    exit 0
+     exit 0
 }
 
 preuninst ()
 {
-    exit 0
+     exit 0
 }
 
 postuninst ()
 {
-    # Remove link
-    rm -f ${INSTALL_DIR}
 
-    # Remove the web interface
-    rm -fr ${WEB_DIR}/${SHORTNAME}
+     # Web directory
+     rm -rf ${WEB_DIR}/adminer-web
 
-    exit 0
+     exit 0
 }
 
 preupgrade ()
 {
-    exit 0
+     exit 0
 }
 
 postupgrade ()
 {
-    exit 0
+     exit 0
 }
+
