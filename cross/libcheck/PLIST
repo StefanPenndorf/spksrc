@@ -1,0 +1,3 @@
+lnk:lib/libcheck.so
+lnk:lib/libcheck.so.0
+lib:lib/libcheck.so.0.0.0

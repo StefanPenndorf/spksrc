@@ -1,6 +1,6 @@
 SPK_NAME = ezstream
-SPK_VERS = 0.6.0
-SPK_REV = 1
+SPK_VERS = 1.0.1
+SPK_REV = 2
 SPK_ICON = src/ezstream.png
 
 DEPENDS  = cross/$(SPK_NAME)

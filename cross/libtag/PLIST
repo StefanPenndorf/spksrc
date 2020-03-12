@@ -1,0 +1,3 @@
+lnk:lib/libtag.so
+lnk:lib/libtag.so.1
+lib:lib/libtag.so.1.17.0
