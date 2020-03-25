@@ -1,5 +1,5 @@
 PKG_NAME = protobuf
-PKG_VERS = 3.5.1
+PKG_VERS = 3.11.4
 PKG_EXT = tar.gz
 PKG_DIST_NAME = $(PKG_NAME)-cpp-$(PKG_VERS).$(PKG_EXT)
 PKG_DIST_SITE = https://github.com/google/protobuf/releases/download/v$(PKG_VERS)
