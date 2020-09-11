@@ -1,6 +1,6 @@
 SPK_NAME = nextcloud
-SPK_VERS = 18.0.0
-SPK_REV = 2
+SPK_VERS = 19.0.3
+SPK_REV = 3
 SPK_ICON = src/nextcloud.png
 DSM_UI_DIR = app
 
