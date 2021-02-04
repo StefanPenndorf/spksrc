@@ -16,3 +16,8 @@ service_postinst ()
 }
 
 
+service_postupgrade ()
+{
+    sed -i -e "s|/usr/local/icecast|/var/packages/icecast|g" ${CFG_FILE}
+}
+
