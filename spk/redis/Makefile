@@ -1,6 +1,6 @@
 SPK_NAME = redis
-SPK_VERS = 5.0.7
-SPK_REV = 7
+SPK_VERS = 6.0.9
+SPK_REV = 8
 SPK_ICON = src/redis.png
 DSM_UI_DIR = app
 
@@ -13,7 +13,7 @@ RELOAD_UI = yes
 STARTABLE = yes
 DISPLAY_NAME = redis
 
-CHANGELOG = "Update to 5.0.7"
+CHANGELOG = "Update to 6.0.9"
 
 # PPC archs except qoriq are not supported anymore
 UNSUPPORTED_ARCHS = $(OLD_PCC_ARCHS)
