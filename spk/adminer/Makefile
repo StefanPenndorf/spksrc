@@ -1,18 +1,18 @@
 SPK_NAME = adminer
-SPK_VERS = 4.7.6
-SPK_REV = 3
+SPK_VERS = 4.7.8
+SPK_REV = 4
 SPK_ICON = src/adminer.png
 DSM_UI_DIR = app
 
 DEPENDS  = cross/$(SPK_NAME)
 
-MAINTAINER = piwi82
+MAINTAINER = DigitalBox
 DESCRIPTION = Adminer is a full-featured database management tool available for MySQL, PostgreSQL, SQLite, MS SQL, Oracle, Firebird, SimpleDB, Elasticsearch and MongoDB.
 DESCRIPTION_FRE = Adminer est un outil de gestion de base de données complet disponible pour MySQL, PostgreSQL, SQLite, MS SQL, Oracle, Firebird, SimpleDB, ElasticSearch et MongoDB.
 ADMIN_URL = /adminer/
 RELOAD_UI = yes
 DISPLAY_NAME = Adminer
-CHANGELOG = "1. Update to 4.7.6<br/>2. Add wizard to configure networks for client access (.htaccess)<br/>3. Switch to design 'rmsoft_blue', due design 'nette' is outdated"
+CHANGELOG = "Update to 4.7.8<br/>"
 
 HOMEPAGE = https://www.adminer.org
 LICENSE  = Apache License 2.0 or GPL 2
