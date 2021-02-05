@@ -1,5 +1,5 @@
 PATH="${SYNOPKG_PKGDEST}/bin:${PATH}"
-MONO_PATH="/usr/local/mono/bin"
+MONO_PATH="/var/packages/mono/target/bin"
 MONO="${MONO_PATH}/mono"
 
 # Check versions during upgrade
@@ -7,12 +7,17 @@ RADARR="${SYNOPKG_PKGDEST}/share/Radarr/Radarr.exe"
 SPK_RADARR="${SYNOPKG_PKGINST_TEMP_DIR}/share/Radarr/Radarr.exe"
 
 # Radarr uses custom Config and PID directories
-HOME_DIR="${SYNOPKG_PKGDEST}/var"
-CONFIG_DIR="${SYNOPKG_PKGDEST}/var/.config"
-PID_FILE="${CONFIG_DIR}/Radarr/nzbdrone.pid"
+HOME_DIR="${SYNOPKG_PKGVAR}/"
+CONFIG_DIR="${SYNOPKG_PKGVAR}/.config"
+PID_FILE="${CONFIG_DIR}/Radarr/radarr.pid"
 
 # Some have it stored in the root of package
 LEGACY_CONFIG_DIR="${SYNOPKG_PKGDEST}/.config"
+
+# workaround for mono bug with armv5 (https://github.com/mono/mono/issues/12537)
+if [ "$SYNOPKG_DSM_ARCH" == "88f8621" -o "$SYNOPKG_DSM_ARCH" == "88f8622" ]; then
+    MONO="MONO_ENV_OPTIONS='-O=-aot,-float32' ${MONO_PATH}/mono"
+fi
 
 GROUP="sc-download"
 LEGACY_GROUP="sc-media"
@@ -45,10 +50,10 @@ service_preupgrade ()
     # The /var/ folder gets automatically copied by service-installer after this
     if [ -d "${LEGACY_CONFIG_DIR}" ]; then
         echo "Moving ${LEGACY_CONFIG_DIR} to ${INST_VAR}" >> ${INST_LOG}
-        mv ${LEGACY_CONFIG_DIR} ${CONFIG_DIR} >> ${LOG_FILE} 2>&1
+        mv ${LEGACY_CONFIG_DIR} ${CONFIG_DIR} >> ${INST_LOG} 2>&1
     else
         # Create, in case it's missing for some reason
-        mkdir ${CONFIG_DIR} >> ${LOG_FILE} 2>&1
+        mkdir ${CONFIG_DIR} >> ${INST_LOG} 2>&1
     fi
 
     # Is Installed Radarr Binary Ver. >= SPK Radarr Binary Ver.?
@@ -68,12 +73,12 @@ service_preupgrade ()
 
 service_postupgrade ()
 {
-    # Restore Current Radarr Binary If Current Ver. >= SPK Ver.
+    # Restore Current Radarr Binary if Current Ver. >= SPK Ver.
     . ${CONFIG_DIR}/KEEP_VAR
     if [ "$KEEP_CUR" == "yes" ]; then
         echo "Restoring Radarr version from before upgrade" >> ${INST_LOG}
-        rm -fr ${SYNOPKG_PKGDEST}/share >> $INST_LOG 2>&1
-        mv ${INST_VAR}/share ${SYNOPKG_PKGDEST}/ >> $INST_LOG 2>&1
+        rm -fr ${SYNOPKG_PKGDEST}/share >> ${INST_LOG} 2>&1
+        mv ${INST_VAR}/share ${SYNOPKG_PKGDEST}/ >> ${INST_LOG} 2>&1
         set_unix_permissions "${SYNOPKG_PKGDEST}/share"
     fi
     set_unix_permissions "${CONFIG_DIR}"

@@ -1,11 +1,11 @@
 SPK_NAME = radarr
 SPK_VERS = $(shell date +%Y%m%d)
-SPK_REV = 8
+SPK_REV = 13
 SPK_ICON = src/radarr.png
 
 REQUIRED_DSM = 5.0
 # Mono not supported on ppc platforms. C.f. cross/mono/Makefile and references therein for details.
-UNSUPPORTED_ARCHS = $(PPC_ARCHES)
+UNSUPPORTED_ARCHS = $(PPC_ARCHS)
 
 DEPENDS = cross/busybox cross/curl cross/mediainfo cross/sqlite cross/radarr
 
@@ -16,7 +16,7 @@ DESCRIPTION  = Radarr is a movie manager like Couchpotato, but based on the Sona
 RELOAD_UI = yes
 STARTABLE = yes
 DISPLAY_NAME = Radarr
-CHANGELOG = "Update Radarr to v0.2.0.1293."
+CHANGELOG = "Update Radarr to v3.0.0.4204"
 
 HOMEPAGE = https://radarr.video/
 LICENSE  = GPLv3

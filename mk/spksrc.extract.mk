@@ -8,17 +8,21 @@
 #  post_extract_target  (override with POST_EXTRACT_TARGET)
 EXTRACT_PATH ?= $(WORK_DIR)
 # Extract commands
+ifeq ($(strip $(EXTRACT_CMD.$(DIST_EXT))),)
 EXTRACT_CMD.tgz = tar -xzpf $(DIST_FILE) -C $(EXTRACT_PATH)
 EXTRACT_CMD.txz = tar -xpf $(DIST_FILE) -C $(EXTRACT_PATH)
 EXTRACT_CMD.tar.gz = tar -xzpf $(DIST_FILE) -C $(EXTRACT_PATH)
 EXTRACT_CMD.tar.bz2 = tar -xjpf $(DIST_FILE) -C $(EXTRACT_PATH)
+EXTRACT_CMD.tbz = tar -xjpf $(DIST_FILE) -C $(EXTRACT_PATH)
 EXTRACT_CMD.tar.xz = tar -xJpf $(DIST_FILE) -C $(EXTRACT_PATH)
 EXTRACT_CMD.tar.lzma = tar --lzma -xpf $(DIST_FILE) -C $(EXTRACT_PATH)
 EXTRACT_CMD.tar.lz = tar --lzip -xpf $(DIST_FILE) -C $(EXTRACT_PATH)
 EXTRACT_CMD.zip = unzip $(DIST_FILE) -d $(EXTRACT_PATH)
+endif
 
+ifeq ($(strip $(EXTRACT_CMD)),)
 EXTRACT_CMD = $(EXTRACT_CMD.$(DIST_EXT)) 
-
+endif
 
 EXTRACT_COOKIE = $(WORK_DIR)/.$(COOKIE_PREFIX)extract_done
 

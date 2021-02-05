@@ -1,10 +1,10 @@
 PATH="${SYNOPKG_PKGDEST}/bin:${PATH}"
-MONO_PATH="/usr/local/mono/bin"
+MONO_PATH="/var/packages/mono/target/bin"
 MONO="${MONO_PATH}/mono"
 
 # Sonarr uses the home directory to store it's ".config"
-HOME_DIR="${SYNOPKG_PKGDEST}/var"
-CONFIG_DIR="${SYNOPKG_PKGDEST}/var/.config"
+HOME_DIR="${SYNOPKG_PKGVAR}"
+CONFIG_DIR="${SYNOPKG_PKGVAR}/.config"
 
 # Sonarr v2 -> v3 compatibility:
 if [ -f "${SYNOPKG_PKGDEST}/share/NzbDrone/NzbDrone.exe" ]; then
@@ -28,6 +28,11 @@ fi
 
 # Some have it stored in the root of package
 LEGACY_CONFIG_DIR="${SYNOPKG_PKGDEST}/.config"
+
+# workaround for mono bug with armv5 (https://github.com/mono/mono/issues/12537)
+if [ "$SYNOPKG_DSM_ARCH" == "88f6281" -o "$SYNOPKG_DSM_ARCH" == "88f6282" ]; then
+    MONO="MONO_ENV_OPTIONS='-O=-aot,-float32' ${MONO_PATH}/mono"
+fi
 
 GROUP="sc-download"
 LEGACY_GROUP="sc-media"

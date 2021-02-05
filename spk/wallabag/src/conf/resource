@@ -1,0 +1,76 @@
+{
+    "mariadb10-db": {
+        "admin-account-m10": "root",
+        "admin-pw-m10": "{{wizard_mysql_password_root}}",
+        "create-db": {
+            "flag": true,
+            "db-collision": "skip",
+            "db-name": "wallabag"
+        },
+        "grant-user": {
+            "flag": true,
+            "db-name": "wallabag",
+            "user-name": "wallabag",
+            "db-collision": "skip",
+            "user-pw": "{{wizard_wallabag_password_root}}"
+        }
+    },
+    "webservice": {
+        "services": [
+            {
+                "service": "wallabag",
+                "display_name": "Wallabag",
+                "type": "apache_php",
+                "root": "wallabag/web",
+                "backend": 2,
+                "icon": "app/images/wallabag-{0}.png",
+                "php": {
+                    "profile_name": "Wallabag Profile",
+                    "profile_desc": "PHP Profile for Wallabag",
+                    "backend": 8,
+                    "open_basedir": "/var/services/web_packages/wallabag:/tmp:/var/services/tmp",
+                    "extensions": [
+                        "bcmaths",
+                        "curl",
+                        "gd",
+                        "gettext",
+                        "iconv",
+                        "intl",
+                        "pdo_mysql"
+                    ],
+                    "php_settings": {
+                        "pdo_mysql.default_socket": "/run/mysqld/mysqld10.sock"
+                    },
+                    "user": "sc-wallabag",
+                    "group": "http"
+                }
+            }
+        ],
+        "migrate": {
+            "root": [
+                {
+                    "old": "wallabag",
+                    "new": "wallabag"
+                }
+            ]
+        },
+        "portals": [
+            {
+                "service": "wallabag",
+                "type": "alias",
+                "name": "wallabag",
+                "alias": "wallabag",
+                "app": "com.synocommunity.packages.wallabag"
+            }
+        ],
+        "pkg_dir_prepare": [
+            {
+                "source": "/var/packages/wallabag/target/share/wallabag",
+                "target": "wallabag",
+                "mode": "0755",
+                "user": "sc-wallabag",
+                "group": "http"
+            }
+        ]
+    }
+}

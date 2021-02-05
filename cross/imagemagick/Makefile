@@ -8,22 +8,24 @@ PKG_DIR = $(PKG_NAME)-$(PKG_VERS)
 
 DEPENDS = cross/freetype cross/libpng cross/libxml2 cross/libtiff cross/libjpeg
 
-HOMEPAGE = http://www.imagemagick.org/
+HOMEPAGE = https://www.imagemagick.org/
 COMMENT  = ImageMagick is a software suite to create, edit, compose, or convert bitmap images.
 LICENSE  = Apache 2.0
 
-UNSUPPORTED_ARCHS = powerpc ppc824x
-
 GNU_CONFIGURE = 1
-
 CONFIGURE_ARGS = --disable-installed --without-perl --without-x --without-fpx --without-wmf --disable-openmp
-
-
-INSTALL_TARGET = imagemagick_extra_install
+INSTALL_TARGET = imagemagick_install
 
 include ../../mk/spksrc.cross-cc.mk
 
-imagemagick_extra_install:
+ifeq ($(findstring $(ARCH),$(ARMv5_ARCHS) $(OLD_PPC_ARCHS)),$(ARCH))
+# ARMv5 and PPC archs (except QorIQ) have older kernels
+# linking to lib rt fixes unreferenced clock_gettime
+CONFIGURE_ARGS += CFLAGS=-lrt
+endif
+
+.PHONY: imagemagick_install
+imagemagick_install:
 	$(RUN) make install prefix=$(STAGING_INSTALL_PREFIX) \
 	SHARE_PATH=$(STAGING_INSTALL_PREFIX)/share/ImageMagick-7/ \
 	DATA_DIR=$(STAGING_INSTALL_PREFIX)/share/ImageMagick-7/ \

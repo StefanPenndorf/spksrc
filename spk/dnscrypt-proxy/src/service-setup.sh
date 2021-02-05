@@ -1,8 +1,8 @@
 # shellcheck disable=SC2148
 SVC_CWD="${SYNOPKG_PKGDEST}"
 DNSCRYPT_PROXY="${SYNOPKG_PKGDEST}/bin/dnscrypt-proxy"
-PID_FILE="${SYNOPKG_PKGDEST}/var/dnscrypt-proxy.pid"
-CFG_FILE="${SYNOPKG_PKGDEST}/var/dnscrypt-proxy.toml"
+PID_FILE="${SYNOPKG_PKGVAR}/dnscrypt-proxy.pid"
+CFG_FILE="${SYNOPKG_PKGVAR}/dnscrypt-proxy.toml"
 EXAMPLE_FILES="${SYNOPKG_PKGDEST}/example-*"
 BACKUP_PORT="10053"
 ## I need root to bind to port 53 see `service_prestart()` below
@@ -25,22 +25,26 @@ blocklist_setup () {
     ## https://github.com/jedisct1/dnscrypt-proxy/wiki/Public-blacklists
     ## https://github.com/jedisct1/dnscrypt-proxy/tree/master/utils/generate-domains-blacklists
     echo "Install/Upgrade generate-domains-blacklist.py (requires python)" >> "${INST_LOG}"
-    mkdir -p "${SYNOPKG_PKGDEST}/var"
+    mkdir -p "${SYNOPKG_PKGVAR}"
     touch "${SYNOPKG_PKGDEST}"/var/ip-blocklist.txt
-    if [ ! -e "${SYNOPKG_PKGDEST}/var/domains-blacklist.conf" ]; then
-        wget -t 3 -O "${SYNOPKG_PKGDEST}/var/domains-blacklist.conf" \
+    if [ ! -e "${SYNOPKG_PKGVAR}/domains-blacklist.conf" ]; then
+        wget -t 3 -O "${SYNOPKG_PKGVAR}/domains-blacklist.conf" \
             --https-only https://raw.githubusercontent.com/jedisct1/dnscrypt-proxy/master/utils/generate-domains-blacklists/domains-blacklist.conf
     fi
 }
 
 blocklist_cron_uninstall () {
     # remove cron job
-    sed -i '/.*update-blocklist.sh/d' /etc/crontab
+    if [ "$OS" = "dsm" ]; then
+        rm -f /etc/cron.d/dnscrypt-proxy-update-blocklist
+    else
+        sed -i '/.*update-blocklist.sh/d' /etc/crontab
+    fi
     synoservicectl --restart crond >> "${INST_LOG}" 2>&1
 }
 
 pgrep () {
-    if [ "$OS" == 'dsm' ]; then
+    if [ "$OS" = 'dsm' ]; then
         # shellcheck disable=SC2009,SC2153
         ps aux | grep "$1" >> "${LOG_FILE}" 2>&1
     else
@@ -55,16 +59,16 @@ restart_dhcpd () {
 
 forward_dns_dhcpd () {
     echo "dns forwarding - $1" >> "${LOG_FILE}"
-    if [ "$1" == "no" ] && [ -f /etc/dhcpd/dhcpd-dnscrypt-dnscrypt.conf ]; then
-        if [ "$OS" == 'dsm' ]; then
+    if [ "$1" = "no" ] && [ -f /etc/dhcpd/dhcpd-dnscrypt-dnscrypt.conf ]; then
+        if [ "$OS" = "dsm" ]; then
             echo "enable=no" > /etc/dhcpd/dhcpd-dns-dns.info
         else
             echo "enable=no" > /etc/dhcpd/dhcpd-dnscrypt-dnscrypt.info
         fi
         restart_dhcpd
-    elif [ "$1" == "yes" ]; then
+    elif [ "$1" = "yes" ]; then
         if pgrep "dhcpd.conf"; then  # if dhcpd (dnsmasq) is enabled and running
-            if [ "$OS" == 'dsm ' ]; then
+            if [ "$OS" = "dsm" ]; then
                 echo "server=127.0.0.1#${BACKUP_PORT}" > /etc/dhcpd/dhcpd-dns-dns.conf
                 echo "enable=yes" > /etc/dhcpd/dhcpd-dns-dns.info
                 # /etc/dhcpd/dhcpd-vendor.conf
@@ -84,7 +88,7 @@ service_prestart () {
     echo "service_preinst ${SYNOPKG_PKG_STATUS}" >> "${INST_LOG}"
 
     # Install daily cron job (3 minutes past midnight), to update the block list
-    if [ "$OS" == 'dsm' ]; then
+    if [ "$OS" = 'dsm' ]; then
         mkdir -p /etc/cron.d
         echo "3       0       *       *       *       root    /var/packages/dnscrypt-proxy/target/var/update-blocklist.sh" >> /etc/cron.d/dnscrypt-proxy-update-blocklist
     else # RSM
@@ -123,11 +127,11 @@ service_postinst () {
     mkdir -p "${SYNOPKG_PKGDEST}"/var >> "${INST_LOG}" 2>&1
     if [ ! -e "${CFG_FILE}" ]; then
         # shellcheck disable=SC2086
-        cp -f ${EXAMPLE_FILES} "${SYNOPKG_PKGDEST}/var/" >> "${INST_LOG}" 2>&1
-        cp -f "${SYNOPKG_PKGDEST}"/offline-cache/* "${SYNOPKG_PKGDEST}/var/" >> "${INST_LOG}" 2>&1
-        cp -f "${SYNOPKG_PKGDEST}"/blocklist/* "${SYNOPKG_PKGDEST}/var/" >> "${INST_LOG}" 2>&1
+        cp -f ${EXAMPLE_FILES} "${SYNOPKG_PKGVAR}/" >> "${INST_LOG}" 2>&1
+        cp -f "${SYNOPKG_PKGDEST}"/offline-cache/* "${SYNOPKG_PKGVAR}/" >> "${INST_LOG}" 2>&1
+        cp -f "${SYNOPKG_PKGDEST}"/blocklist/* "${SYNOPKG_PKGVAR}/" >> "${INST_LOG}" 2>&1
         # shellcheck disable=SC2231
-        for file in ${SYNOPKG_PKGDEST}/var/example-*; do
+        for file in ${SYNOPKG_PKGVAR}/example-*; do
             mv "${file}" "${file//example-/}" >> "${INST_LOG}" 2>&1
         done
 
@@ -160,10 +164,10 @@ service_postinst () {
             "${CFG_FILE}" >> "${INST_LOG}" 2>&1
     fi
 
-    echo "Fixing permissions for cgi GUI... on SRM" >> "${INST_LOG}"
+    echo "Fixing permissions for cgi GUI... " >> "${INST_LOG}"
     # Fixes https://github.com/publicarray/spksrc/issues/3
     # https://originhelp.synology.com/developer-guide/privilege/privilege_specification.html
-    chmod 0777 "${SYNOPKG_PKGDEST}/var/" >> "${INST_LOG}" 2>&1
+    chmod 0777 "${SYNOPKG_PKGVAR}/" >> "${INST_LOG}" 2>&1
 
     blocklist_setup
 
@@ -183,13 +187,16 @@ service_postuninst () {
     pkgindexer_del "${SYNOPKG_PKGDEST}/ui/helptoc.conf" >> "${INST_LOG}" 2>&1
     pkgindexer_del "${SYNOPKG_PKGDEST}/ui/index.conf" >> "${INST_LOG}" 2>&1
     disable_dhcpd_dns_port "no"
-    rm -f /etc/dhcpd/dhcpd-dns-dns.conf
-    rm -f /etc/dhcpd/dhcpd-dns-dns.info
-    rm -f /etc/dhcpd/dhcpd-dnscrypt-dnscrypt.conf
-    rm -f /etc/dhcpd/dhcpd-dnscrypt-dnscrypt.info
+    if [ "$OS" = "dsm" ]; then
+        rm -f /etc/dhcpd/dhcpd-dns-dns.conf
+        rm -f /etc/dhcpd/dhcpd-dns-dns.info
+    else
+        rm -f /etc/dhcpd/dhcpd-dnscrypt-dnscrypt.conf
+        rm -f /etc/dhcpd/dhcpd-dnscrypt-dnscrypt.info
+    fi
 }
 
 service_postupgrade () {
     # upgrade script when the offline-cache is also updated
-    cp -f "${SYNOPKG_PKGDEST}"/blocklist/generate-domains-blacklist.py "${SYNOPKG_PKGDEST}/var/" >> "${INST_LOG}" 2>&1
+    cp -f "${SYNOPKG_PKGDEST}"/blocklist/generate-domains-blacklist.py "${SYNOPKG_PKGVAR}/" >> "${INST_LOG}" 2>&1
 }

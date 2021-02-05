@@ -1,6 +1,6 @@
 SPK_NAME = nzbget
 SPK_VERS = $(shell date +%Y%m%d)
-SPK_REV = 25
+SPK_REV = 26
 SPK_ICON = src/nzbget.png
 
 DEPENDS = cross/busybox cross/p7zip cross/unrar
@@ -14,7 +14,7 @@ STARTABLE = yes
 DISPLAY_NAME = NZBGet
 CHANGELOG = "1) Use generic NZBGet installer, allows for in-app upgrading. 2) Use DSM 5+6 generic service approach for correct permissions."
 
-HOMEPAGE = http://nzbget.net
+HOMEPAGE = https://nzbget.net
 LICENSE  = GPLv2
 
 WIZARDS_DIR = src/wizard/
