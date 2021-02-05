@@ -1,6 +1,6 @@
 SPK_NAME = redis
 SPK_VERS = 5.0.7
-SPK_REV = 6
+SPK_REV = 7
 SPK_ICON = src/redis.png
 DSM_UI_DIR = app
 
