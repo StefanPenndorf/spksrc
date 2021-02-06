@@ -19,8 +19,8 @@ lnk:lib/libMagick++-7.Q16HDRI.so
 lnk:lib/libMagick++-7.Q16HDRI.so.4
 lib:lib/libMagick++-7.Q16HDRI.so.4.0.0
 lnk:lib/libMagickCore-7.Q16HDRI.so
-lnk:lib/libMagickCore-7.Q16HDRI.so.6
-lib:lib/libMagickCore-7.Q16HDRI.so.6.0.0
+lnk:lib/libMagickCore-7.Q16HDRI.so.9
+lib:lib/libMagickCore-7.Q16HDRI.so.9.0.0
 lnk:lib/libMagickWand-7.Q16HDRI.so
-lnk:lib/libMagickWand-7.Q16HDRI.so.6
-lib:lib/libMagickWand-7.Q16HDRI.so.6.0.0
+lnk:lib/libMagickWand-7.Q16HDRI.so.9
+lib:lib/libMagickWand-7.Q16HDRI.so.9.0.0
