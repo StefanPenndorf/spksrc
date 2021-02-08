@@ -1,5 +1,5 @@
 PKG_NAME = erlang
-PKG_VERS = R16B03-1
+PKG_VERS = 23.2
 PKG_EXT = tar.gz
 PKG_DIST_NAME = otp_src_$(PKG_VERS).$(PKG_EXT)
 PKG_DIST_SITE = https://www.erlang.org/download/
