@@ -20,9 +20,9 @@ LICENSE  = Charityware
 
 POST_STRIP_TARGET = vim_extra_install
 
-SPK_COMMANDS = bin/view bin/vimdiff bin/rvim bin/rview bin/vimtutor
-SPK_LINKS  = /usr/local/bin/vim:bin/vim-utf8
-SPK_LINKS += /usr/local/bin/vim$(subst .,,$(SPK_VERS)):bin/vim-utf8
+SPK_COMMANDS = bin/view bin/vimdiff bin/rvim bin/rview bin/vimtutor bin/vim
+SPK_USR_LOCAL_LINKS  = /usr/local/bin/vim:bin/vim-utf8
+SPK_USR_LOCAL_LINKS += /usr/local/bin/vim$(subst .,,$(SPK_VERS)):bin/vim-utf8
 
 include ../../mk/spksrc.spk.mk
 
