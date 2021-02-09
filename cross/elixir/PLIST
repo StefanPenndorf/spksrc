@@ -1,0 +1,4 @@
+bin:bin/elixir
+bin:bin/elixirc
+bin:bin/iex
+bin:bin/mix

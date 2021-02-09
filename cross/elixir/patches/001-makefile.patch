@@ -1,0 +1,11 @@
+--- Makefile.orig	2019-05-11 14:29:01.000000000 +0200
++++ Makefile	2021-02-09 21:45:37.982960030 +0100
+@@ -109,7 +109,7 @@
+ 	$(Q) $(INSTALL_PROGRAM) $(filter-out %.ps1, $(filter-out %.bat, $(wildcard bin/*))) "$(DESTDIR)$(PREFIX)/$(LIBDIR)/elixir/bin"
+ 	$(Q) $(INSTALL_DIR) "$(DESTDIR)$(PREFIX)/$(BINDIR)"
+ 	$(Q) for file in "$(DESTDIR)$(PREFIX)"/$(LIBDIR)/elixir/bin/*; do \
+-		ln -sf "../$(LIBDIR)/elixir/bin/$${file##*/}" "$(DESTDIR)$(PREFIX)/$(BINDIR)/"; \
++		ln -sf "$(DESTDIR)$(PREFIX)/$(LIBDIR)/elixir/bin/$${file##*/}" "$(DESTDIR)$(PREFIX)/elixir/$(BINDIR)/"; \
+ 	done
+ 	$(MAKE) install_man
+ 
