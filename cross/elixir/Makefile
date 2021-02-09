@@ -17,17 +17,10 @@ LICENSE = Apache License
 ENV += PATH=$(WORK_DIR)/../../../native/erlang/work-native/install/usr/local/bin:$$PATH
 
 CONFIGURE_TARGET = myConfigure
-#INSTALL_TARGET = myInstall
 
 include ../../mk/spksrc.cross-cc.mk
-
-#ENV += PATH=$(WORK_DIR)/../../../native/erlang/work-native/install/usr/local/bin:$(WORK_DIR)/../../../native/erlang/work-native/install/usr/local/lib/erlang/erts-10.5/bin:$$PATH
 
 .PHONY: myConfigure
 myConfigure:
 	$(RUN) echo "No configure needed"
-
-#.PHONY: myInstall
-##myInstall:
-#	$(RUN) make install DESTDIR=$(INSTALL_DIR) INSTALL_PREFIX=
 
