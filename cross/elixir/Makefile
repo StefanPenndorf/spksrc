@@ -16,11 +16,17 @@ LICENSE = Apache License
 
 ENV += PATH=$(WORK_DIR)/../../../native/erlang/work-native/install/usr/local/bin:$$PATH
 
-CONFIGURE_TARGET = myConfigure
+CONFIGURE_TARGET = elixir_configure
+INSTALL_TARGET = elixir_install
 
 include ../../mk/spksrc.cross-cc.mk
 
-.PHONY: myConfigure
-myConfigure:
+.PHONY: elixir_configure
+elixir_configure:
 	$(RUN) echo "No configure needed"
+
+.PHONY: elixir_install
+elixir_install:
+	$(RUN) make install DESTDIR=$(INSTALL_DIR) INSTALL_PREFIX=
+
 
