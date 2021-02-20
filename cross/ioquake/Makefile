@@ -1,9 +1,9 @@
 PKG_NAME = ioquake
 PKG_VERS = 3.0.0
 PKG_EXT = zip
-PKG_DIST_NAME = master.zip
+PKG_DIST_NAME = main.zip
 PKG_DIST_SITE = https://github.com/ioquake/ioq3/archive
-PKG_DIR = ioq3-master
+PKG_DIR = ioq3-main
 #$(PKG_NAME)-$(PKG_VERS)
 
 DEPENDS =
