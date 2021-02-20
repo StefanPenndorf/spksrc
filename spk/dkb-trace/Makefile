@@ -1,6 +1,6 @@
 SPK_NAME = dkb-trace
 SPK_VERS = 2.2
-SPK_REV = 0
+SPK_REV = 1
 SPK_ICON = src/dkb-trace.png
 DSM_UI_DIR = app
 
