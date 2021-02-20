@@ -1,0 +1,15 @@
+{
+    ".url": {
+        "com.synocommunity.packages.sspks": {
+            "title": "SSPKS",
+            "desc": "SSPKS",
+            "icon": "images/sspks-{0}.png",
+            "type": "url",
+            "protocol": "http",
+            "port": "80",
+            "url": "/sspks",
+            "allUsers": true,
+            "grantPrivilege": "local"
+        }
+    }
+}

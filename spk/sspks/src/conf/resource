@@ -1,0 +1,56 @@
+{
+  "webservice": {
+    "services": [
+      {
+        "service": "sspks",
+        "display_name": "SSPKS",
+        "type": "apache_php",
+        "root": "sspks",
+        "backend": 2,
+        "icon": "app/images/sspks-{0}.png",
+        "php": {
+          "profile_name": "sspks Profile",
+          "profile_desc": "PHP Profile for sspks",
+          "backend": 8,
+          "open_basedir": "/var/services/web_packages/sspks:/tmp:/var/services/tmp",
+          "extensions": [
+            "mysqli",
+            "pgsql",
+            "pdo_mysql",
+            "pdo_pgsql",
+            "pdo_dblib",
+            "pdo_sqlite"
+          ],
+          "user": "sc-sspks",
+          "group": "http"
+        }
+      }
+    ],
+    "migrate": {
+      "root": [
+        {
+          "old": "sspks",
+          "new": "sspks"
+        }
+      ]
+    },
+    "portals": [
+      {
+        "service": "sspks",
+        "type": "alias",
+        "name": "SSPKS",
+        "alias": "sspks",
+        "app": "com.synocommunity.packages.sspks"
+      }
+    ],
+    "pkg_dir_prepare": [
+      {
+        "source": "/var/packages/sspks/target/web",
+        "target": "sspks",
+        "mode": "0755",
+        "user": "sc-sspks",
+        "group": "http"
+      }
+    ]
+  }
+}
