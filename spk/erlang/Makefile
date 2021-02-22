@@ -12,11 +12,10 @@ STARTABLE = no
 DISPLAY_NAME = Erlang
 
 HOMEPAGE   = http://www.erlang.org
-LICENSE    = MPL
+LICENSE    = Apache 2.0
 
+SPK_COMMANDS = bin/erl bin/erlc
 SPK_USR_LOCAL_LINKS  = bin:bin/erlc bin:bin/erl
-
-INSTALLER_SCRIPT = src/installer.sh
 
 include ../../mk/spksrc.spk.mk
 
