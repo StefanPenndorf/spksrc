@@ -33,17 +33,10 @@ include ../../mk/spksrc.spk.mk
 .PHONY: rabbitmq_extra_install
 rabbitmq_extra_install:
 	# Create required directories
-	install -m 755 -d ${STAGING_DIR}/etc/
-	install -m 755 -d ${STAGING_DIR}/etc/rabbitmq/	
-	install -m 755 -d ${STAGING_DIR}/etc/var/
-	install -m 755 -d ${STAGING_DIR}/etc/var/lib/
-	install -m 755 -d ${STAGING_DIR}/etc/var/lib/rabbitmq
-	install -m 755 -d ${STAGING_DIR}/etc/var/lib/rabbitmq/mnesia
+	install -m 755 -d ${STAGING_DIR}/etc/rabbitmq ${STAGING_DIR}/var
 	# RabbitMQ Config
-	echo "loopback_users.guest = false \n" > ${STAGING_DIR}/etc/rabbitmq/rabbitmq.conf
-	echo "log.dir = /var/packages/rabbitmq/var/" >> ${STAGING_DIR}/etc/rabbitmq/rabbitmq.conf
+	install -m 644 src/rabbitmq.conf ${STAGING_DIR}/var/rabbitmq.conf
 	# RabbitMQ ENV variables
-	echo "RABBITMQ_CONFIG_FILE=${INSTALL_PREFIX}/etc/rabbitmq/rabbitmq.conf" > ${STAGING_DIR}/etc/rabbitmq/rabbitmq-env.conf
-	echo "RABBITMQ_MNESIA_BASE=${INSTALL_PREFIX}/etc/var/lib/rabbitmq/mnesia" >> ${STAGING_DIR}/etc/rabbitmq/rabbitmq-env.conf
-	echo "RABBITMQ_LOG_BASE=/var/packages/rabbitmq/var" >> ${STAGING_DIR}/etc/rabbitmq/rabbitmq-env.conf
-	echo "RABBITMQ_ENABLED_PLUGINS_FILE=${INSTALL_PREFIX}/etc/rabbitmq/enabled_plugins" >> ${STAGING_DIR}/etc/rabbitmq/rabbitmq-env.conf
+	install -m 644 src/etc/rabbitmq-env.conf ${STAGING_DIR}/etc/rabbitmq/rabbitmq-env.conf
+	# RabbitMQ plugins
+	install -m 644 src/enabled_plugins ${STAGING_DIR}/var/enabled_plugins
