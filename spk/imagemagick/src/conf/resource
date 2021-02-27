@@ -1,0 +1,52 @@
+{
+  "webservice": {
+    "services": [
+      {
+        "service": "imagemagick",
+        "display_name": "ImageMagick",
+        "type": "apache_php",
+        "root": "imagemagick",
+        "backend": 2,
+        "icon": "app/images/imagemagick-{0}.png",
+        "php": {
+          "profile_name": "imagemagick Profile",
+          "profile_desc": "PHP Profile for imagemagick",
+          "backend": 8,
+          "open_basedir": "/var/services/web_packages/imagemagick:/tmp:/var/services/tmp",
+          "extensions": [
+            "curl",
+            "opensll"
+          ],
+          "user": "sc-imagemagick",
+          "group": "http"
+        }
+      }
+    ],
+    "migrate": {
+      "root": [
+        {
+          "old": "imagemagick",
+          "new": "imagemagick"
+        }
+      ]
+    },
+    "portals": [
+      {
+        "service": "imagemagick",
+        "type": "alias",
+        "name": "ImageMagick",
+        "alias": "imagemagick",
+        "app": "com.synocommunity.packages.imagemagick"
+      }
+    ],
+    "pkg_dir_prepare": [
+      {
+        "source": "/var/packages/imagemagick/target/web",
+        "target": "imagemagick",
+        "mode": "0755",
+        "user": "sc-imagemagick",
+        "group": "http"
+      }
+    ]
+  }
+}

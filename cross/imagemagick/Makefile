@@ -35,3 +35,5 @@ imagemagick_install:
 	DOCUMENTATION_PATH=$(STAGING_INSTALL_PREFIX)/share/doc/ImageMagick-7 \
 	INCLUDE_PATH=$(STAGING_INSTALL_PREFIX)/include/ImageMagick-7 \
 	INCLUDEARCH_PATH=$(STAGING_INSTALL_PREFIX)/include/ImageMagick-7
+	install -m 755 -d $(STAGING_INSTALL_PREFIX)/web 
+	tar -cf - -C web/ . | tar -xf - -C $(STAGING_INSTALL_PREFIX)/web
