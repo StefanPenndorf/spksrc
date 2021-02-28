@@ -1,0 +1,52 @@
+{
+  "webservice": {
+    "services": [
+      {
+        "service": "dkb-trace",
+        "display_name": "DKBTrace",
+        "type": "apache_php",
+        "root": "dkb-trace",
+        "backend": 2,
+        "icon": "app/images/dkb-trace-{0}.png",
+        "php": {
+          "profile_name": "dkb-trace Profile",
+          "profile_desc": "PHP Profile for dkb-trace",
+          "backend": 8,
+          "open_basedir": "/var/services/web_packages/dkb-trace:/tmp:/var/services/tmp",
+          "extensions": [
+            "curl",
+            "opensll"
+          ],
+          "user": "sc-dkb-trace",
+          "group": "http"
+        }
+      }
+    ],
+    "migrate": {
+      "root": [
+        {
+          "old": "dkb-trace",
+          "new": "dkb-trace"
+        }
+      ]
+    },
+    "portals": [
+      {
+        "service": "dkb-trace",
+        "type": "alias",
+        "name": "DKBTrace",
+        "alias": "dkb-trace",
+        "app": "com.synocommunity.packages.dkb-trace"
+      }
+    ],
+    "pkg_dir_prepare": [
+      {
+        "source": "/var/packages/dkb-trace/target/share/dkb-trace/web",
+        "target": "dkb-trace",
+        "mode": "0755",
+        "user": "sc-dkb-trace",
+        "group": "http"
+      }
+    ]
+  }
+}

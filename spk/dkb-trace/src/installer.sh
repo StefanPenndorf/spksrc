@@ -4,7 +4,8 @@
 PACKAGE="dkb-trace"
 
 # Others
-INSTALL_DIR="/usr/local/${PACKAGE}"
+INSTALL_DIR="/var/packages/${PACKAGE}/target"
+INSTALL_WEB_DIR="/var/services/web_packages/${PACKAGE}"
 
 preinst ()
 {
@@ -14,15 +15,9 @@ preinst ()
 
 postinst ()
 {
-    # Link
-    #ln -s ${SYNOPKG_PKGDEST} ${INSTALL_DIR}
-
     # Edit the configuration according to the wizard
-    #sed -i -e "s/@username@/${wizard_username:=admin}/g" ${INSTALL_DIR}/share/dkb-trace/web/config.php
-    #sed -i -e "s/@password@/${wizard_password:=admin}/g" ${INSTALL_DIR}/share/dkb-trace/web/config.php
-
-    # Web directory
-    #cp -R ${INSTALL_DIR}/share/dkb-trace/web/ /var/services/web/${PACKAGE}/
+    sed -i -e "s/@username@/${wizard_username:=admin}/g" ${INSTALL_WEB_DIR}/config.php
+    sed -i -e "s/@password@/${wizard_password:=admin}/g" ${INSTALL_WEB_DIR}/config.php
 
     exit 0
 }
@@ -34,12 +29,6 @@ preuninst ()
 
 postuninst ()
 {
-    # Link
-    #rm -f ${INSTALL_DIR}
-
-    # Web directory
-    #rm -rf /var/services/web/${PACKAGE}/
-
     exit 0
 }
 
