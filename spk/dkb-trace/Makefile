@@ -37,4 +37,6 @@ include ../../mk/spksrc.spk.mk
 .PHONY: dkb_trace_extra_install
 dkb_trace_extra_install:
 	install -m 755 -d $(STAGING_DIR)/app
+	install -m 755 -d $(STAGING_DIR)/share/dkb-trace/web/work_images
 	install -m 644 src/app/config $(STAGING_DIR)/app/config
+	chmod 766 $(STAGING_DIR)/share/dkb-trace/web/exec.sh
