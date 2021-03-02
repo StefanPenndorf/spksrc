@@ -7,9 +7,8 @@ DEPENDS = cross/$(SPK_NAME)
 
 MAINTAINER = DigitalBox
 DESCRIPTION = Ioquake3 is a free software first person shooter engine based on the Quake 3: Arena and Quake 3: Team Arena. The source code is licensed under the GPL version 2, and was first released under that license by id software on August 20th, 2005. The goal is to create the open source Quake 3 distribution upon which people base their games, ports to new platforms, and other projects.
-RELOAD_UI = yes
-STARTABLE = yes
-DISPLAY_NAME = Quake III Server
+
+DISPLAY_NAME = "Quake III Server"
 CHANGELOG = "Initial version"
 
 HOMEPAGE = https://ioquake3.org
@@ -20,8 +19,8 @@ WIZARDS_DIR = WIZARD_UIFILES
 SERVICE_USER = auto
 SERVICE_SETUP = src/service-setup.sh
 SERVICE_PORT = 27960
-SERVICE_PORT_TITLE = $(DISPLAY_NAME)
-NO_SERVICE_SHORTCUT = yes
+STARTABLE = yes
+
 FWPORTS = src/ioquake.sc
 
 POST_STRIP_TARGET = ioquake-post-strip

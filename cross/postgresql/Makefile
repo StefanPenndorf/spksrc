@@ -14,7 +14,7 @@ LICENSE  = PostgreSQL Licence
 
 GNU_CONFIGURE = 1
 
-CONFIGURE_ARGS = --with-template=linux --with-openssl --with-system-tzdata=/usr/share/zoneinfo
+CONFIGURE_ARGS = --with-template=linux --with-openssl --with-system-tzdata=/usr/share/zoneinfo --without-readline
 
 # If you want to invoke the build from another makefile rather than manually,
 # you must unset MAKELEVEL or set it to zero.
