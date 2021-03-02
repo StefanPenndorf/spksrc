@@ -1,0 +1,56 @@
+{
+  "webservice": {
+    "services": [
+      {
+        "service": "nextcloud",
+        "display_name": "NextCloud",
+        "type": "apache_php",
+        "root": "nextcloud",
+        "backend": 2,
+        "icon": "app/images/nextcloud-{0}.png",
+        "php": {
+          "profile_name": "nextcloud Profile",
+          "profile_desc": "PHP Profile for nextcloud",
+          "backend": 8,
+          "open_basedir": "/var/services/web_packages/nextcloud:/tmp:/var/services/tmp",
+          "extensions": [
+            "mysqli",
+            "pgsql",
+            "pdo_mysql",
+            "pdo_pgsql",
+            "pdo_dblib",
+            "pdo_sqlite"
+          ],
+          "user": "sc-nextcloud",
+          "group": "http"
+        }
+      }
+    ],
+    "migrate": {
+      "root": [
+        {
+          "old": "nextcloud",
+          "new": "nextcloud"
+        }
+      ]
+    },
+    "portals": [
+      {
+        "service": "nextcloud",
+        "type": "alias",
+        "name": "NextCloud",
+        "alias": "nextcloud",
+        "app": "com.synocommunity.packages.nextcloud"
+      }
+    ],
+    "pkg_dir_prepare": [
+      {
+        "source": "/var/packages/nextcloud/target/share/nextcloud/",
+        "target": "nextcloud",
+        "mode": "0755",
+        "user": "sc-nextcloud",
+        "group": "http"
+      }
+    ]
+  }
+}

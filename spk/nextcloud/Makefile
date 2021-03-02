@@ -8,6 +8,7 @@ DEPENDS  = cross/$(SPK_NAME)
 
 MAINTAINER = DigitalBox
 DESCRIPTION = Nextcloud puts your data at your fingertips, under your control. Store your documents, calendar, contacts and photos on a server at home, at one of our providers or in a data center you trust.
+
 ADMIN_URL = /nextcloud/
 RELOAD_UI = yes
 DISPLAY_NAME = NextCloud
@@ -17,14 +18,24 @@ LICENSE    = AGPLv3
 
 REQUIRED_DSM = 5.0
 
-BETA = 1
-
 WIZARDS_DIR = WIZARD_UIFILES/
-
 INSTALLER_SCRIPT = src/installer.sh
 SSS_SCRIPT       = src/dsm-control.sh
 
-INSTALL_PREFIX = /usr/local/$(SPK_NAME)
+SPK_DEPENDS = "WebStation>=2.1.0:PHP7.4>=7.4.0:Apache2.4>=2.4.0"
+INSTALL_DEP_SERVICES = apache-web
+START_DEP_SERVICES = apache-web
+INSTUNINST_RESTART_SERVICES = apache-web
+CONF_DIR = src/conf
+SYSTEM_GROUP = http
+
+#INSTALL_PREFIX = /usr/local/$(SPK_NAME)
+
+POST_STRIP_TARGET = nextcloud_extra_install
 
 include ../../mk/spksrc.spk.mk
 
+.PHONY: nextcloud_extra_install
+nextcloud_extra_install:
+	install -m 755 -d $(STAGING_DIR)/app
+	install -m 644 src/app/config $(STAGING_DIR)/app/config
