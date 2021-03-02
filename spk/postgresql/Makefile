@@ -1,5 +1,5 @@
 SPK_NAME = postgresql
-SPK_VERS = 11.6
+SPK_VERS = 12.6
 SPK_REV = 2
 SPK_ICON = src/postgresql.png
 

@@ -14,12 +14,12 @@ daemon_status ()
 
 case $1 in
   start)
-    su - ${DAEMON_USER} -s /bin/sh -c "${SYNOPKG_PKGDEST}/bin/pg_ctl -D ${DATABASE_DIR} -l ${DATABASE_DIR}/logfile start"
+    ${SYNOPKG_PKGDEST}/bin/pg_ctl -D ${DATABASE_DIR} -l ${DATABASE_DIR}/logfile start
     exit 0
   ;;
 
   stop)
-    su - ${DAEMON_USER} -s /bin/sh -c "${SYNOPKG_PKGDEST}/bin/pg_ctl -D ${DATABASE_DIR} stop"
+    ${SYNOPKG_PKGDEST}/bin/pg_ctl -D ${DATABASE_DIR} stop
     exit 0
   ;;
 
