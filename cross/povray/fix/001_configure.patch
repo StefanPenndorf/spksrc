@@ -1,0 +1,110 @@
+--- ./configure	2021-03-03 01:08:30.317565717 +0100
++++ work-braswell-7.0/povray-3.7.0.8/configure	2021-03-03 01:11:49.809578133 +0100
+@@ -4998,16 +4998,10 @@
+   ac_status=$?
+   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+   test $ac_status = 0; }; }; then
+-    cross_compiling=no
++    cross_compiling=yes
+   else
+     if test "$cross_compiling" = maybe; then
+ 	cross_compiling=yes
+-    else
+-	{ { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+-$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+-as_fn_error $? "cannot run C compiled programs.
+-If you meant to cross compile, use \`--host'.
+-See \`config.log' for more details" "$LINENO" 5; }
+     fi
+   fi
+ fi
+@@ -7952,14 +7946,14 @@
+     break
+   fi
+ done
+-if test $boost_thread_links != '1'; then
+-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+-$as_echo "no" >&6; }
+-  { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+-$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+-as_fn_error $? "cannot link with the boost thread library
+-See \`config.log' for more details" "$LINENO" 5; }
+-fi
++#if test $boost_thread_links != '1'; then
++#  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++#$as_echo "no" >&6; }
++#  { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
++#$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
++#as_fn_error $? "cannot link with the boost thread library
++#See \`config.log' for more details" "$LINENO" 5; }
++#fi
+ 
+ 
+ $as_echo "#define USE_OFFICIAL_BOOST /**/" >>confdefs.h
+@@ -8289,11 +8283,11 @@
+     LDFLAGS="$ax_check_lib_save_ldflags"
+   fi
+ 
+-  if test x"$ax_check_lib" != x"ok"; then
+-    as_fn_error $? "cannot find a suitable ZLIB library" "$LINENO" 5
+-  else
++  #if test x"$ax_check_lib" != x"ok"; then
++  #  as_fn_error $? "cannot find a suitable ZLIB library" "$LINENO" 5
++  #else
+     pov_libz=ok
+-  fi
++  #fi
+ fi
+ 
+ # libpng; required library for distributable builds
+@@ -8481,11 +8475,11 @@
+   # AX_COMPARE_VERSION([$ax_check_lib_version], [ge], [1.4], [ax_check_lib="bad"], [ax_check_lib="ok"])
+   # AC_MSG_RESULT([$ax_check_lib])
+   ###
+-  if test x"$ax_check_lib" != x"ok"; then
+-    as_fn_error $? "cannot find a suitable PNG library" "$LINENO" 5
+-  else
++  #if test x"$ax_check_lib" != x"ok"; then
++  #  as_fn_error $? "cannot find a suitable PNG library" "$LINENO" 5
++  #else
+     pov_libpng=ok
+-  fi
++  #fi
+ fi
+ 
+ # FIXME: what about cygwin?
+@@ -8674,14 +8668,14 @@
+     LDFLAGS="$ax_check_libjpeg_save_ldflags"
+   fi
+ 
+-  if test x"$ax_check_libjpeg" != x"ok"; then
+-    as_fn_error $? "cannot find a suitable JPEG library" "$LINENO" 5
+-  else
++  #if test x"$ax_check_libjpeg" != x"ok"; then
++  #  as_fn_error $? "cannot find a suitable JPEG library" "$LINENO" 5
++  #else
+     # create jversion.h in builddir
+     test -d "./source" || mkdir ./source
+     echo "#define JVERSION \"${ax_check_libjpeg_version}\"" > ./source/jversion.h
+     pov_libjpeg=ok
+-  fi
++  #fi
+ fi
+ 
+ # libtiff; required library for distributable builds
+@@ -8872,11 +8866,11 @@
+     LDFLAGS="$ax_check_libtiff_save_ldflags"
+   fi
+ 
+-  if test x"$ax_check_libtiff" != x"ok"; then
+-    as_fn_error $? "cannot find a suitable TIFF library" "$LINENO" 5
+-  else
++  #if test x"$ax_check_libtiff" != x"ok"; then
++  #  as_fn_error $? "cannot find a suitable TIFF library" "$LINENO" 5
++  #else
+     pov_libtiff=ok
+-  fi
++  #fi
+ fi
+ 
+ # OpenEXR; optional library
