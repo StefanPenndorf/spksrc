@@ -22,5 +22,15 @@ FWPORTS = src/minecraft.sc
 # Make sure ARCH is not defined
 override ARCH=
 
+POST_STRIP_TARGET = minecraft_extra_install
+
 include ../../mk/spksrc.spk.mk
 
+.PHONY: minecraft_extra_install
+minecraft_extra_install:
+	# Create required directories
+	install -m 755 -d ${STAGING_DIR}/home
+	# eula.txt 
+	echo "eula=true" > ${STAGING_DIR}/home/eula.txt
+	# server.properties
+	install -m 644 files/server.properties ${STAGING_DIR}/home/server.properties
