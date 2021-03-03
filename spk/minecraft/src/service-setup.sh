@@ -1,5 +1,5 @@
 PATH="${SYNOPKG_PKGDEST}:${PATH}"
-SERVICE_COMMAND="java -Xmx1024M -Xms1024M -jar ${SYNOPKG_PKGDEST}/server.jar nogui"
+SERVICE_COMMAND="/usr/local/bin/java -Xmx1024M -Xms1024M -jar ${SYNOPKG_PKGDEST}/server.jar nogui"
 SVC_BACKGROUND=y
 SVC_WRITE_PID=y
 

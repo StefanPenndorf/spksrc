@@ -18,4 +18,3 @@ include ../../mk/spksrc.cross-cc.mk
 .PHONY: minecraft_install
 minecraft_install:
 	echo "eula=true" >$(STAGING_INSTALL_PREFIX)/eula.txt
-	cp $(WORK_DIR)/../files/server.properties $(STAGING_INSTALL_PREFIX)/server.properties
