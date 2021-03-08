@@ -1,0 +1,9 @@
+bin:bin/cjpeg
+bin:bin/djpeg
+bin:bin/jpegtran
+bin:bin/rdjpgcom
+bin:bin/tjbench
+bin:bin/wrjpgcom
+lib:lib64/libjpeg.so
+lib:lib64/libjpeg.so.62
+lib:lib64/libjpeg.so.62.2.0
