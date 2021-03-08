@@ -1,0 +1,11 @@
+--- src/script/common/helper-orig.cpp	2021-03-08 15:51:05.084013735 +0100
++++ src/script/common/helper.cpp	2021-03-08 15:51:57.220014028 +0100
+@@ -43,7 +43,7 @@
+ 
+ bool LuaHelper::isNaN(lua_State *L, int idx)
+ {
+-	return lua_type(L, idx) == LUA_TNUMBER && std::isnan(lua_tonumber(L, idx));
++	return lua_type(L, idx) == LUA_TNUMBER && isnan(lua_tonumber(L, idx));
+ }
+ 
+ /*

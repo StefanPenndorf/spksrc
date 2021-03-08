@@ -1,4 +1,4 @@
---- src/CMakeLists.txt.orig	2018-06-10 15:18:11.000000000 +0000
+--- src/CMakeLists-orig.txt	2018-06-10 15:18:11.000000000 +0000
 +++ src/CMakeLists.txt	2019-01-30 12:39:15.302008800 +0000
 @@ -43,6 +43,10 @@
  		message(STATUS "cURL support enabled.")

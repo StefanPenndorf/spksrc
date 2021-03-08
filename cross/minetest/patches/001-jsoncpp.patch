@@ -1,0 +1,12 @@
+--- lib/jsoncpp/jsoncpp-orig.cpp	2021-03-08 15:36:31.784008816 +0100
++++ lib/jsoncpp/jsoncpp.cpp	2021-03-08 15:39:24.876009791 +0100
+@@ -4185,9 +4185,6 @@
+ #endif
+ #else
+ #include <cmath>
+-#if !(defined(__QNXNTO__)) // QNX already defines isfinite
+-#define isfinite std::isfinite
+-#endif
+ #endif
+ 
+ #if defined(_MSC_VER)

@@ -1,0 +1,30 @@
+--- src/util/ieee_float-orig.cpp	2021-03-08 16:20:32.052023687 +0100
++++ src/util/ieee_float.cpp	2021-03-08 16:21:00.932023850 +0100
+@@ -66,9 +66,9 @@
+ 	u32 signbit = std::copysign(1.0f, f) == 1.0f ? 0 : 0x80000000UL;
+ 	if (f == 0.f)
+ 		return signbit;
+-	if (std::isnan(f))
++	if (isnan(f))
+ 		return signbit | 0x7FC00000UL;
+-	if (std::isinf(f))
++	if (isinf(f))
+ 		return signbit | 0x7F800000UL;
+ 	int exp = 0; // silence warning
+ 	f32 mant = frexpf(f, &exp);
+@@ -110,13 +110,13 @@
+ 	char buf[128];
+ 
+ 	// NaN checks aren't included in the main loop
+-	if (!std::isnan(u32Tof32Slow(0x7FC00000UL))) {
++	if (!isnan(u32Tof32Slow(0x7FC00000UL))) {
+ 		porting::mt_snprintf(buf, sizeof(buf),
+ 			"u32Tof32Slow(0x7FC00000) failed to produce a NaN, actual: %.9g",
+ 			u32Tof32Slow(0x7FC00000UL));
+ 		infostream << buf << std::endl;
+ 	}
+-	if (!std::isnan(u32Tof32Slow(0xFFC00000UL))) {
++	if (!isnan(u32Tof32Slow(0xFFC00000UL))) {
+ 		porting::mt_snprintf(buf, sizeof(buf),
+ 			"u32Tof32Slow(0xFFC00000) failed to produce a NaN, actual: %.9g",
+ 			u32Tof32Slow(0xFFC00000UL));
