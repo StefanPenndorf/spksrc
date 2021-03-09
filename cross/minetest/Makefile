@@ -3,8 +3,8 @@ PKG_NAME_GAME = minetest_game
 PKG_NAME_IRRLICHT = irrlicht
 
 # Make sure this versions are different, otherwise the scrip will not work
-PKG_VERS = 5.0.1
-PKG_VERS_GAME = 5.0.1
+PKG_VERS = 5.4.0
+PKG_VERS_GAME = 5.4.0
 PKG_VERS_IRRLICHT = 1.7.3
 
 PKG_EXT = zip

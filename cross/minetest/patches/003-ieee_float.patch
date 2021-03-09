@@ -1,5 +1,5 @@
---- src/util/ieee_float-orig.cpp	2021-03-08 16:20:32.052023687 +0100
-+++ src/util/ieee_float.cpp	2021-03-08 16:21:00.932023850 +0100
+--- src/util//ieee_float-orig.cpp	2021-03-09 17:41:52.604033164 +0100
++++ src/util/ieee_float.cpp	2021-03-09 17:42:14.720033288 +0100
 @@ -66,9 +66,9 @@
  	u32 signbit = std::copysign(1.0f, f) == 1.0f ? 0 : 0x80000000UL;
  	if (f == 0.f)

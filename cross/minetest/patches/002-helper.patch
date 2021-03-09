@@ -1,6 +1,6 @@
---- src/script/common/helper-orig.cpp	2021-03-08 15:51:05.084013735 +0100
-+++ src/script/common/helper.cpp	2021-03-08 15:51:57.220014028 +0100
-@@ -43,7 +43,7 @@
+--- src/script/common/helper-orig.cpp	2021-03-09 17:25:22.704027588 +0100
++++ src/script/common/helper.cpp	2021-03-09 17:25:40.092027686 +0100
+@@ -44,7 +44,7 @@
  
  bool LuaHelper::isNaN(lua_State *L, int idx)
  {

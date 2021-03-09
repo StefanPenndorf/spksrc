@@ -1,12 +1,11 @@
---- lib/jsoncpp/jsoncpp-orig.cpp	2021-03-08 15:36:31.784008816 +0100
-+++ lib/jsoncpp/jsoncpp.cpp	2021-03-08 15:39:24.876009791 +0100
-@@ -4185,9 +4185,6 @@
- #endif
- #else
- #include <cmath>
--#if !(defined(__QNXNTO__)) // QNX already defines isfinite
--#define isfinite std::isfinite
--#endif
- #endif
- 
- #if defined(_MSC_VER)
+--- lib/jsoncpp/jsoncpp-orig.cpp	2021-03-09 17:23:08.768026834 +0100
++++ lib/jsoncpp/jsoncpp.cpp	2021-03-09 17:23:25.960026931 +0100
+@@ -3224,7 +3224,7 @@
+     return value_.uint_ != 0;
+   case realValue: {
+     // According to JavaScript language zero or NaN is regarded as false
+-    const auto value_classification = std::fpclassify(value_.real_);
++    const auto value_classification = fpclassify(value_.real_);
+     return value_classification != FP_ZERO && value_classification != FP_NAN;
+   }
+   default:
