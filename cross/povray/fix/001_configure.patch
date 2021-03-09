@@ -1,5 +1,5 @@
---- ./configure	2021-03-03 01:08:30.317565717 +0100
-+++ work-braswell-7.0/povray-3.7.0.8/configure	2021-03-03 01:11:49.809578133 +0100
+--- ./configure-orig	2021-03-03 01:08:30.317565717 +0100
++++ ./configure	2021-03-03 01:11:49.809578133 +0100
 @@ -4998,16 +4998,10 @@
    ac_status=$?
    $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
@@ -18,6 +18,31 @@
      fi
    fi
  fi
+@@ -7873,9 +7873,9 @@
+-            if test "x$ax_lib" = "x"; then
+-                as_fn_error $? "Could not find a version of the library!" "$LINENO" 5
+-            fi
++            #if test "x$ax_lib" = "x"; then
++            #    as_fn_error $? "Could not find a version of the library!" "$LINENO" 5
++            #fi
+-			if test "x$link_thread" = "xno"; then
+-				as_fn_error $? "Could not link against $ax_lib !" "$LINENO" 5
+-                        else
++			#if test "x$link_thread" = "xno"; then
++			#	as_fn_error $? "Could not link against $ax_lib !" "$LINENO" 5
++                        #else
+                            case "x$host_os" in
+                               *bsd* )
+ 				BOOST_LDFLAGS="-pthread $BOOST_LDFLAGS"
+@@ -7883,7 +7883,7 @@
+                               ;;
+                            esac
+ 
+-			fi
++			#fi
+ 		fi
+ 
+ 		CPPFLAGS="$CPPFLAGS_SAVED"
 @@ -7952,14 +7946,14 @@
      break
    fi
