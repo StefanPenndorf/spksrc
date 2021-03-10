@@ -1,6 +1,6 @@
---- src/gcodeExport-orig.cpp	2021-03-10 10:22:31.699567503 +0100
-+++ src/gcodeExport.cpp	2021-03-10 10:23:29.287564575 +0100
-@@ -637,13 +637,13 @@
+--- src/gcodeExport-orig.cpp	2021-03-10 10:53:07.207474188 +0100
++++ src/gcodeExport.cpp	2021-03-10 10:53:18.455473616 +0100
+@@ -638,13 +638,13 @@
  
  void GCodeExport::writeMoveBFB(const int x, const int y, const int z, const Velocity& speed, double extrusion_mm3_per_mm, PrintFeatureType feature)
  {
@@ -11,23 +11,6 @@
          assert(false && "Infinite extrusion move!");
          std::exit(1);
      }
--    if (std::isnan(extrusion_mm3_per_mm))
-+    if (isnan(extrusion_mm3_per_mm))
-     {
-         logError("Extrusion rate is not a number!");
-         assert(false && "NaN extrusion move!");
-@@ -737,14 +737,14 @@
-     assert(extrusion_mm3_per_mm >= 0.0);
- #endif //ASSERT_INSANE_OUTPUT
- 
--    if (std::isinf(extrusion_mm3_per_mm))
-+    if (isinf(extrusion_mm3_per_mm))
-     {
-         logError("Extrusion rate is infinite!");
-         assert(false && "Infinite extrusion move!");
-         std::exit(1);
-     }
- 
 -    if (std::isnan(extrusion_mm3_per_mm))
 +    if (isnan(extrusion_mm3_per_mm))
      {

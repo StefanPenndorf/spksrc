@@ -1,5 +1,5 @@
 PKG_NAME = curaengine
-PKG_VERS = 4.5.0
+PKG_VERS = 4.8.0
 PKG_EXT = tar.gz
 PKG_DIST_SITE = https://github.com/Ultimaker/CuraEngine/archive
 PKG_DIST_NAME = $(PKG_VERS).$(PKG_EXT)

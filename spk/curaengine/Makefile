@@ -1,6 +1,6 @@
 SPK_NAME = curaengine
-SPK_VERS = 4.5.0
-SPK_REV = 1
+SPK_VERS = 4.8.0
+SPK_REV = 2
 SPK_ICON = src/curaengine.png
 
 DEPENDS = cross/$(SPK_NAME)
