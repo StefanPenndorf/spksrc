@@ -1,6 +1,6 @@
 SPK_NAME = povray
 SPK_VERS = 3.7.0.8
-SPK_REV = 1
+SPK_REV = 2
 SPK_ICON = src/povray.png
 
 DEPENDS = cross/$(SPK_NAME)
