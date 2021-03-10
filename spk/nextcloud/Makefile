@@ -18,7 +18,6 @@ LICENSE    = AGPLv3
 
 REQUIRED_DSM = 5.0
 
-WIZARDS_DIR = WIZARD_UIFILES/
 INSTALLER_SCRIPT = src/installer.sh
 SSS_SCRIPT       = src/dsm-control.sh
 
