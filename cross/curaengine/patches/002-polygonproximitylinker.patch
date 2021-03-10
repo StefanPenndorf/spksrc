@@ -1,0 +1,11 @@
+--- src/utils/PolygonProximityLinker-orig.cpp	2021-03-10 10:26:44.011554676 +0100
++++ src/utils/PolygonProximityLinker.cpp	2021-03-10 10:27:01.279553798 +0100
+@@ -401,7 +401,7 @@
+     // [wolfram alpha] == 0.5*overlap * sqrt(cos_angle+1)/sqrt(1-cos_angle)
+     // [assuming positive x] == 0.5*overlap / sqrt( 2 / (cos_angle + 1) - 1 ) 
+     if (cos_angle <= 0
+-        || ! std::isfinite(cos_angle) )
++        || ! isfinite(cos_angle) )
+     {
+         return -1; // line_width / 2;
+     }
