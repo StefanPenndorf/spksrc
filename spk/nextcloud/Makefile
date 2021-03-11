@@ -1,6 +1,6 @@
 SPK_NAME = nextcloud
-SPK_VERS = 19.0.3
-SPK_REV = 3
+SPK_VERS = 21.0.0
+SPK_REV = 4
 SPK_ICON = src/nextcloud.png
 DSM_UI_DIR = app
 
@@ -31,6 +31,9 @@ SYSTEM_GROUP = http
 #INSTALL_PREFIX = /usr/local/$(SPK_NAME)
 
 POST_STRIP_TARGET = nextcloud_extra_install
+
+# Pure PHP package, make sure ARCH is not defined
+override ARCH=
 
 include ../../mk/spksrc.spk.mk
 
