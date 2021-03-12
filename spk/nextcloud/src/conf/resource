@@ -4,7 +4,7 @@
       {
         "service": "nextcloud",
         "display_name": "NextCloud",
-        "type": "nginx_php",
+        "type": "apache_php",
         "root": "nextcloud",
         "backend": 2,
         "icon": "app/images/nextcloud-{0}.png",
