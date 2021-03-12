@@ -21,10 +21,8 @@ REQUIRED_DSM = 5.0
 INSTALLER_SCRIPT = src/installer.sh
 SSS_SCRIPT       = src/dsm-control.sh
 
-SPK_DEPENDS = "WebStation>=2.1.0:PHP7.4>=7.4.0:Apache2.2>=2.2.0"
-INSTALL_DEP_SERVICES = apache-web
-START_DEP_SERVICES = apache-web
-INSTUNINST_RESTART_SERVICES = apache-web
+SPK_DEPENDS = "WebStation>=2.1.0:PHP7.4>=7.4.0"
+START_DEP_SERVICES = nginx.service
 CONF_DIR = src/conf
 SYSTEM_GROUP = http
 
