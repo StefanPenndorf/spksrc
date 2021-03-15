@@ -17,7 +17,7 @@ LICENSE    = GPLv2
 
 SERVICE_SETUP = src/service-setup.sh
 
-SPK_LINKS = /usr/local/bin/mutt:bin/mutt-utf8
+SPK_USR_LOCAL_LINKS=bin:bin/mutt-utf8
 
 POST_STRIP_TARGET = mutt_extra_install
 
