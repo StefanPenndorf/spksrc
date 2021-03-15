@@ -12,6 +12,8 @@ DISPLAY_NAME = "Minecraft Server"
 
 HOMEPAGE = https://www.minecraft.net
 
+#WIZARDS_DIR = WIZARD_UIFILES
+
 SERVICE_USER = auto
 SERVICE_SETUP = src/service-setup.sh
 SERVICE_PORT = 25565

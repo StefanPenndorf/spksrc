@@ -1,0 +1,17 @@
+[{
+    "step_title": "Minecraft server installation",
+    "items": [{
+        "type": "singleselect",
+        "desc": "If new version detected on Mojang's website, download this latest version",
+        "subitems": [{
+            "key": "wizard_new",
+            "desc": "Yes, I want to be up-to-date",
+            "defaultValue": "true"
+        }, {
+            "key": "wizard_current",
+            "desc": "No, I want to keep current version from package",
+            "defaultValue": false
+        }]
+    }]
+
+}]
