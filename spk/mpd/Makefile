@@ -7,7 +7,7 @@ DSM_UI_DIR = app
 DEPENDS  = cross/$(SPK_NAME)
 
 MAINTAINER = DigitalBox
-DESCRIPTION = 
+DESCRIPTION = A daemon for playing music of various formats
 
 RELOAD_UI = yes
 STARTABLE = yes
