@@ -14,28 +14,22 @@ TC = syno$(ARCH_SUFFIX)
 else
 SPK_ARCH = noarch
 SPK_NAME_ARCH = noarch
+ifeq ($(call version_ge, ${TCVERSION}, 7.0),1)
+SPK_TCVERS = dsm7
+OS_MIN_VER = 7.0-40000
+else
 SPK_TCVERS = all
+OS_MIN_VER = 3.1-1594
+endif
+ARCH_SUFFIX = -$(SPK_TCVERS)
+FIRMWARE = $(OS_MIN_VER)
 endif
 
 SPK_FILE_NAME = $(PACKAGES_DIR)/$(SPK_NAME)_$(SPK_NAME_ARCH)-$(SPK_TCVERS)_$(SPK_VERS)-$(SPK_REV).spk
 
 #####
 
-# Check if package supports ARCH
-ifneq ($(UNSUPPORTED_ARCHS),)
-  ifneq (,$(findstring $(ARCH),$(UNSUPPORTED_ARCHS)))
-    @$(error Arch '$(ARCH)' is not a supported architecture )
-  endif
-endif
-
-# Check minimum DSM requirements of package
-ifneq ($(REQUIRED_DSM),)
-  ifneq ($(REQUIRED_DSM),$(firstword $(sort $(TCVERSION) $(REQUIRED_DSM))))
-    @$(error Toolchain $(TCVERSION) is lower than required version in Makefile $(REQUIRED_DSM) )
-  endif
-endif
-
-#####
+include ../../mk/spksrc.pre-check.mk
 
 # Even though this makefile doesn't cross compile, we need this to setup the cross environment.
 include ../../mk/spksrc.cross-env.mk
@@ -94,13 +88,10 @@ ifneq ($(strip $(SPK_ICON)),)
 include ../../mk/spksrc.icon.mk
 endif
 
-.PHONY: $(WORK_DIR)/INFO
 $(WORK_DIR)/INFO:
 	$(create_target_dir)
 	@$(MSG) "Creating INFO file for $(SPK_NAME)"
 	@echo package=\"$(SPK_NAME)\" > $@
-	@echo dsmappname=\"com.synocommunity.$(SPK_NAME)\" >> $@
-	@echo thirdparty=\"yes\" >> $@
 	@echo version=\"$(SPK_VERS)-$(SPK_REV)\" >> $@
 	@/bin/echo -n "description=\"" >> $@
 	@/bin/echo -n "${DESCRIPTION}" | sed -e 's/\\//g' -e 's/"/\\"/g' >> $@
@@ -120,18 +111,17 @@ endif
 	@echo distributor=\"$(DISTRIBUTOR)\" >> $@
 	@echo distributor_url=\"$(DISTRIBUTOR_URL)\" >> $@
 
+ifneq ($(strip $(OS_MIN_VER)),)
+	@echo os_min_ver=\"$(OS_MIN_VER)\" >> $@
+else
+	@echo os_min_ver=\"$(TC_OS_MIN_VER)\" >> $@
+endif
+ifeq ($(call version_le, ${TC_OS_MIN_VER}, 6.1),1)
 ifneq ($(strip $(FIRMWARE)),)
 	@echo firmware=\"$(FIRMWARE)\" >> $@
-else ifneq ($(strip $(OS_MIN_VER)),)
-	@echo os_min_ver=\"$(OS_MIN_VER)\" >> $@
-else ifneq ($(strip $(TC_FIRMWARE)),)
-	@echo firmware=\"$(TC_FIRMWARE)\" >> $@
-	@echo os_min_ver=\"$(TC_FIRMWARE)\" >> $@
-else ifneq ($(strip $(TC_OS_MIN_VER)),)
-	@echo os_min_ver=\"$(TC_OS_MIN_VER)\" >> $@
 else
-	@echo firmware=\"3.1-1594\" >> $@
-	@echo os_min_ver=\"3.1-1594\" >> $@
+	@echo firmware=\"$(TC_OS_MIN_VER)\" >> $@
+endif
 endif
 ifneq ($(strip $(OS_MAX_VER)),)
 	@echo os_max_ver=\"$(OS_MAX_VER)\" >> $@
@@ -143,9 +133,9 @@ endif
 ifneq ($(strip $(HELPURL)),)
 	@echo helpurl=\"$(HELPURL)\" >> $@
 else
-  ifneq ($(strip $(HOMEPAGE)),)
+ifneq ($(strip $(HOMEPAGE)),)
 	@echo helpurl=\"$(HOMEPAGE)\" >> $@
-  endif
+endif
 endif
 ifneq ($(strip $(SUPPORTURL)),)
 	@echo support_url=\"$(SUPPORTURL)\" >> $@
@@ -159,19 +149,40 @@ endif
 ifneq ($(strip $(INSTUNINST_RESTART_SERVICES)),)
 	@echo instuninst_restart_services=\"$(INSTUNINST_RESTART_SERVICES)\" >> $@
 endif
-ifneq ($(strip $(RELOAD_UI)),)
+ifeq ($(RELOAD_UI),yes)
 	@echo reloadui=\"$(RELOAD_UI)\" >> $@
 endif
+
+ifneq ($(call version_ge, ${TCVERSION}, 7.0),1)
+# old behaviour
 ifeq ($(STARTABLE),no)
+ifeq ($(call version_le, ${TC_OS_MIN_VER}, 6.1),1)
 	@echo startable=\"$(STARTABLE)\" >> $@
+endif
 	@echo ctl_stop=\"$(STARTABLE)\" >> $@
 endif
+else
+# since 7.0 use Synology resource acquisition
+ifeq ($(STARTABLE),no)
+ifeq ($(strip $(SPK_COMMANDS)),)
+# STARTABLE needs to be yes, Resource linking and unlinking works on start and stop
+	@echo ctl_stop=\"$(STARTABLE)\" >> $@
+endif
+endif
+endif
+
 	@echo displayname=\"$(DISPLAY_NAME)\" >> $@
 ifneq ($(strip $(DSM_UI_DIR)),)
 	@echo dsmuidir=\"$(DSM_UI_DIR)\" >> $@
 endif
 ifneq ($(strip $(DSM_APP_NAME)),)
 	@echo dsmappname=\"$(DSM_APP_NAME)\" >> $@
+	@echo dsmapppage=\"$(DSM_APP_NAME)\" >> $@
+	@echo dsmapplaunchname=\"$(DSM_APP_NAME)\" >> $@
+else
+	@echo dsmappname=\"com.synocommunity.$(SPK_NAME)\" >> $@
+	@echo dsmapppage=\"com.synocommunity.$(SPK_NAME)\" >> $@
+	@echo dsmapplaunchname=\"com.synocommunity.$(SPK_NAME)\" >> $@
 endif
 ifneq ($(strip $(ADMIN_PROTOCOL)),)
 	@echo adminprotocol=\"$(ADMIN_PROTOCOL)\" >> $@
@@ -274,7 +285,11 @@ icons:
 ifneq ($(strip $(SPK_ICON)),)
 	$(create_target_dir)
 	@$(MSG) "Creating PACKAGE_ICON.PNG for $(SPK_NAME)"
+ifneq ($(call version_ge, ${TCVERSION}, 7.0),1)
 	(convert $(SPK_ICON) -thumbnail 72x72 -strip - > $(WORK_DIR)/PACKAGE_ICON.PNG)
+else
+	(convert $(SPK_ICON) -thumbnail 64x64 -strip - > $(WORK_DIR)/PACKAGE_ICON.PNG)
+endif
 	@$(MSG) "Creating PACKAGE_ICON_256.PNG for $(SPK_NAME)"
 	(convert $(SPK_ICON) -thumbnail 256x256 -strip - > $(WORK_DIR)/PACKAGE_ICON_256.PNG)
 	$(eval SPK_CONTENT +=  PACKAGE_ICON.PNG PACKAGE_ICON_256.PNG)
@@ -287,13 +302,26 @@ info-checksum:
 
 .PHONY: wizards
 wizards:
-ifneq ($(strip $(WIZARDS_DIR)),)
-	@$(MSG) "Preparing DSM Wizards"
+ifeq ($(call version_ge, ${TCVERSION}, 7.0),1)
+	@$(MSG) "Create default DSM7 uninstall wizard"
 	@mkdir -p $(DSM_WIZARDS_DIR)
-	@find $${SPKSRC_WIZARDS_DIR} -maxdepth 1 -type f -and \( -name "install_uifile" -or -name "install_uifile_???" -or -name "install_uifile.sh" -or -name "install_uifile_???.sh" -or -name "upgrade_uifile" -or -name "upgrade_uifile_???" -or -name "upgrade_uifile.sh" -or -name "upgrade_uifile_???.sh" -or -name "upgrade_uninstall" -or -name "uninstall_uifile" -or -name "uninstall_uifile_???" -or -name "upgrade_uninstall.sh" -or -name "upgrade_uninstall_???.sh" \) -print -exec cp -f {} $(DSM_WIZARDS_DIR) \;
+	@find $(SPKSRC_MK)wizard -maxdepth 1 -type f -and \( -name "uninstall_uifile" -or -name "uninstall_uifile_???" \) -print -exec cp -f {} $(DSM_WIZARDS_DIR) \;
+endif
+ifneq ($(strip $(WIZARDS_DIR)),)
+	@$(MSG) "Create DSM Wizards"
+	@mkdir -p $(DSM_WIZARDS_DIR)
+	@find $${SPKSRC_WIZARDS_DIR} -maxdepth 1 -type f -and \( -name "install_uifile" -or -name "install_uifile_???" -or -name "install_uifile.sh" -or -name "install_uifile_???.sh" -or -name "upgrade_uifile" -or -name "upgrade_uifile_???" -or -name "upgrade_uifile.sh" -or -name "upgrade_uifile_???.sh" -or -name "uninstall_uifile" -or -name "uninstall_uifile_???" -or -name "uninstall_uifile.sh" -or -name "uninstall_uifile_???.sh" \) -print -exec cp -f {} $(DSM_WIZARDS_DIR) \;
+endif
+ifneq ($(strip $(WIZARDS_DIR)),)
 	@find $(DSM_WIZARDS_DIR) -maxdepth 1 -type f -not -name "*.sh" -print -exec chmod 0644 {} \;
 	@find $(DSM_WIZARDS_DIR) -maxdepth 1 -type f -name "*.sh" -print -exec chmod 0755 {} \;
 	$(eval SPK_CONTENT += WIZARD_UIFILES)
+else
+ifeq ($(call version_ge, ${TCVERSION}, 7.0),1)
+	@find $(DSM_WIZARDS_DIR) -maxdepth 1 -type f -not -name "*.sh" -print -exec chmod 0644 {} \;
+	@find $(DSM_WIZARDS_DIR) -maxdepth 1 -type f -name "*.sh" -print -exec chmod 0755 {} \;
+	$(eval SPK_CONTENT += WIZARD_UIFILES)
+endif
 endif
 
 .PHONY: conf
@@ -333,115 +361,108 @@ endif
 clean:
 	rm -fr work work-*
 
+spkclean:
+	rm -fr work-*/.copy_done \
+	       work-*/.depend_done \
+	       work-*/.icon_done \
+	       work-*/.strip_done \
+	       work-*/.wheel_done \
+	       work-*/conf \
+	       work-*/scripts \
+	       work-*/staging \
+	       work-*/package.tgz \
+	       work-*/INFO \
+	       work-*/PLIST \
+	       work-*/PACKAGE_ICON* \
+	       work-*/WIZARD_UIFILES
+
 all: package
 
-dependency-tree:
-	@echo `perl -e 'print "\\\t" x $(MAKELEVEL),"\n"'`+ $(NAME)
-	@for depend in $(BUILD_DEPENDS) $(DEPENDS) ; \
-	do \
-	  $(MAKE) --no-print-directory -C ../../$$depend dependency-tree ; \
-	done
+### For make dependency-tree
+include ../../mk/spksrc.dependency-tree.mk
 
 .PHONY: all-archs
-all-archs: $(addprefix arch-,$(AVAILABLE_ARCHS))
+all-archs: $(addprefix arch-,$(AVAILABLE_TOOLCHAINS))
 
 .PHONY: publish-all-archs
-publish-all-archs: $(addprefix publish-arch-,$(AVAILABLE_ARCHS))
+publish-all-archs: $(addprefix publish-arch-,$(AVAILABLE_TOOLCHAINS))
 
 ####
 
-all-supported:
-	@$(MSG) Build supported archs
-	@if $(MAKE) kernel-required >/dev/null 2>&1 ; then \
-	  for arch in $(sort $(basename $(subst -,.,$(basename $(subst .,,$(ARCHS_DUPES)))))) ; \
-	  do \
-	    $(MAKE) latest-arch-$$arch ; \
-	  done \
-	else \
-	  for arch in $(sort $(basename $(subst -,.,$(basename $(subst .,,$(ARCHS_NO_KRNLSUPP)))))) ; \
-	  do \
-	    $(MAKE) latest-arch-$$arch ; \
-	  done \
-	fi
+ifeq (supported,$(subst all-,,$(subst publish-,,$(firstword $(MAKECMDGOALS)))))
+ACTION = supported
+ALL_ACTION = $(sort $(basename $(subst -,.,$(basename $(subst .,,$(SUPPORTED_ARCHS))))))
+else ifeq (latest,$(subst all-,,$(subst publish-,,$(firstword $(MAKECMDGOALS)))))
+ACTION = latest
+ALL_ACTION = $(sort $(basename $(subst -,.,$(basename $(subst .,,$(DEFAULT_ARCHS))))))
+endif
 
-publish-all-supported:
-	@$(MSG) Publish supported archs
-	@if $(MAKE) kernel-required >/dev/null 2>&1 ; then \
-	  for arch in $(sort $(basename $(subst -,.,$(basename $(subst .,,$(ARCHS_DUPES)))))) ; \
-	  do \
-	    $(MAKE) publish-latest-arch-$$arch ; \
-	  done \
-	else \
-	  for arch in $(sort $(basename $(subst -,.,$(basename $(subst .,,$(ARCHS_NO_KRNLSUPP)))))) ; \
-	  do \
-	    $(MAKE) publish-latest-arch-$$arch ; \
-	  done \
-	fi
+ifeq (publish,$(subst -all-latest,,$(subst -all-supported,,$(firstword $(MAKECMDGOALS)))))
+PUBLISH = publish-
+.NOTPARALLEL:
+endif
 
-all-legacy: $(addprefix arch-,$(LEGACY_ARCHS))
-	$(MAKE) all-toolchain-4.3
-	@$(MSG) Built legacy archs
-
-publish-all-legacy: $(addprefix publish-arch-,$(LEGACY_ARCHS))
-	$(MAKE) all-toolchain-4.3
-	@$(MSG) Published legacy archs
+KERNEL_REQUIRED = $(MAKE) kernel-required
+ifeq ($(strip $(KERNEL_REQUIRED)),)
+ALL_ACTION = $(sort $(basename $(subst -,.,$(basename $(subst .,,$(ARCHS_WITH_KERNEL_SUPPORT))))))
+endif
 
 ####
 
-all-archs-latest:
-	@$(MSG) Build all archs with latest DSM per FIRMWARE
-	@if $(MAKE) kernel-required >/dev/null 2>&1 ; then \
-	  $(MSG) Skipping duplicate arches; \
-	  for arch in $(sort $(basename $(ARCHS_DUPES))) ; \
-	  do \
-	    $(MAKE) latest-arch-$$arch ; \
-	  done \
-	else \
-	  $(MSG) Skipping arches without kernelsupport ; \
-	  for arch in $(sort $(basename $(ARCHS_NO_KRNLSUPP))) ; \
-	  do \
-	    $(MAKE) latest-arch-$$arch ; \
-	  done \
-	fi
+.PHONY: publish-all-$(ACTION) all-$(ACTION) pre-build-native
 
-publish-all-archs-latest:
-	@$(MSG) Publish all archs with latest DSM per FIRMWARE
-	@if $(MAKE) kernel-required >/dev/null 2>&1 ; then \
-	  $(MSG) Skipping duplicate arches; \
-	  for arch in $(sort $(basename $(ARCHS_DUPES))) ; \
-	  do \
-	    $(MAKE) publish-latest-arch-$$arch ; \
-	  done \
-	else \
-	  $(MSG) Skipping arches without kernelsupport ; \
-	  for arch in $(sort $(basename $(ARCHS_NO_KRNLSUPP))) ; \
-	  do \
-	    $(MAKE) publish-latest-arch-$$arch ; \
-	  done \
-	fi
+pre-build-native:
+	@$(MSG) Pre-build native dependencies for parallel build
+	@for depend in $(sort $(BUILD_DEPENDS) $(DEPENDS) $(OPTIONAL_DEPENDS)) ; \
+	do \
+	  if [ "$${depend%/*}" = "native" ]; then \
+	    echo "Pre-processing $${depend}" ; \
+	    echo "env $(ENV) $(MAKE) -C ../../$$depend" ; \
+	    env $(ENV) $(MAKE) -C ../../$$depend ; \
+	  fi ; \
+	done
+	$(MAKE) $(addprefix $(PUBLISH)$(ACTION)-arch-,$(ALL_ACTION))
 
-####
+$(PUBLISH)all-$(ACTION): | pre-build-native
+
+supported-arch-%:
+	@$(MSG) BUILDING package for arch $* with SynoCommunity ${ACTION} toolchain
+	-@MAKEFLAGS= PUBLISH=$(PUBLISH) $(MAKE) ARCH=$(basename $(subst -,.,$*)) TCVERSION=$(notdir $(subst -,/,$(sort $(filter %$(lastword $(notdir $(subst -,/,$(sort $(filter $*%, $(SUPPORTED_ARCHS)))))),$(sort $(filter $*%, $(SUPPORTED_ARCHS)))))))
+
+publish-supported-arch-%:
+	@$(MSG) BUILDING and PUBLISHING package for arch $* with SynoCommunity ${ACTION} toolchain
+	-@MAKEFLAGS= $(MAKE) ARCH=$(basename $(subst -,.,$*)) TCVERSION=$(notdir $(subst -,/,$(sort $(filter %$(lastword $(notdir $(subst -,/,$(sort $(filter $*%, $(SUPPORTED_ARCHS)))))),$(sort $(filter $*%, $(SUPPORTED_ARCHS))))))) publish
 
 latest-arch-%:
-	@$(MSG) Building package for arch $* with latest available toolchain
-	-@MAKEFLAGS= $(MAKE) ARCH=$(basename $(subst -,.,$*)) TCVERSION=$(notdir $(subst -,/,$(sort $(filter %$(lastword $(notdir $(subst -,/,$(sort $(filter $*%, $(AVAILABLE_ARCHS)))))),$(sort $(filter $*%, $(AVAILABLE_ARCHS)))))))
+	@$(MSG) BUILDING package for arch $* with SynoCommunity ${ACTION} toolchain
+	-@MAKEFLAGS= $(MAKE) ARCH=$(basename $(subst -,.,$*)) TCVERSION=$(notdir $(subst -,/,$(sort $(filter %$(lastword $(notdir $(subst -,/,$(sort $(filter $*%, $(AVAILABLE_TOOLCHAINS)))))),$(sort $(filter $*%, $(AVAILABLE_TOOLCHAINS)))))))
 
 publish-latest-arch-%:
-	@$(MSG) Building package for arch $* with latest available toolchain
-	-@MAKEFLAGS= $(MAKE) ARCH=$(basename $(subst -,.,$*)) TCVERSION=$(notdir $(subst -,/,$(sort $(filter %$(lastword $(notdir $(subst -,/,$(sort $(filter $*%, $(AVAILABLE_ARCHS)))))),$(sort $(filter $*%, $(AVAILABLE_ARCHS))))))) publish
+	@$(MSG) BUILDING and PUBLISHING package for arch $* with SynoCommunity ${ACTION} toolchain
+	-@MAKEFLAGS= $(MAKE) ARCH=$(basename $(subst -,.,$*)) TCVERSION=$(notdir $(subst -,/,$(sort $(filter %$(lastword $(notdir $(subst -,/,$(sort $(filter $*%, $(AVAILABLE_TOOLCHAINS)))))),$(sort $(filter $*%, $(AVAILABLE_TOOLCHAINS))))))) publish
 
 ####
 
-all-toolchain-%:
+all-legacy:
+	$(MAKE) legacy-toolchain-5.2 legacy-toolchain-1.2
+	@$(MSG) Built legacy DSM and SRM archs
+
+publish-all-legacy:
+	$(MAKE) publish-legacy-toolchain-5.2
+	@$(MSG) Published legacy DSM archs
+
+####
+
+legacy-toolchain-%:
 	@$(MSG) Built packages for toolchain $*
-	@for arch in $(sort $(basename $(subst -,.,$(basename $(subst .,,$(filter %$*, $(AVAILABLE_ARCHS))))))) ; \
+	@for arch in $(sort $(basename $(subst -,.,$(basename $(subst .,,$(filter %$*, $(LEGACY_ARCHS))))))) ; \
 	do \
 	  $(MAKE) arch-$$arch-$* ; \
 	done \
 
-publish-all-toolchain-%:
+publish-legacy-toolchain-%:
 	@$(MSG) Built packages for toolchain $*
-	@for arch in $(sort $(basename $(subst -,.,$(basename $(subst .,,$(filter %$*, $(AVAILABLE_ARCHS))))))) ; \
+	@for arch in $(sort $(basename $(subst -,.,$(basename $(subst .,,$(filter %$*, $(LEGACY_ARCHS))))))) ; \
 	do \
 	  $(MAKE) publish-arch-$$arch-$* ; \
 	done \
@@ -463,15 +484,7 @@ changelog:
 
 ####
 
-.PHONY: kernel-required
-kernel-required:
-	@if [ -n "$(REQ_KERNEL)" ]; then \
-	  exit 1 ; \
-	fi
-	@for depend in $(BUILD_DEPENDS) $(DEPENDS) ; do \
-	  if $(MAKE) --no-print-directory -C ../../$$depend kernel-required >/dev/null 2>&1 ; then \
-	    exit 0 ; \
-	  else \
-	    exit 1 ; \
-	  fi ; \
-	done
+### For make kernel-required
+include ../../mk/spksrc.kernel-required.mk
+
+####

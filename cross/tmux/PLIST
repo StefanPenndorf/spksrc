@@ -1,2 +1,2 @@
-bin:bin/tmux
-bin:bin/tmux-utf8
+bin:orig/tmux
+rsc:bin/tmux

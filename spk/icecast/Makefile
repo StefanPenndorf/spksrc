@@ -9,12 +9,13 @@ DEPENDS  = cross/busybox cross/$(SPK_NAME)
 MAINTAINER = DigitalBox
 DESCRIPTION = "Icecast is a streaming media server which currently supports Ogg \(Vorbis and Theora\), Opus, WebM and MP3 audio streams. It can be used to create an Internet radio station or a privately running jukebox and many things in between. It is very versatile in that new formats can be added relatively easily and supports open standards for communication and interaction. This package includes Ezstream, a command line source client for Icecast media streaming servers."
 ADMIN_PORT = 8000
+CHANGELOG = "Update openssl to 1.1."
 
 RELOAD_UI = yes
 STARTABLE = yes
-DISPLAY_NAME = icecast
+DISPLAY_NAME = Icecast
 
-HOMEPAGE   = http://www.icecast.org/
+HOMEPAGE   = https://www.icecast.org/
 LICENSE    = GPLv2
 
 WIZARDS_DIR = WIZARD_UIFILES
@@ -23,12 +24,11 @@ SERVICE_USER = auto
 SERVICE_SETUP = src/service-setup.sh
 NO_SERVICE_SHORTCUT = yes
 
-INSTALL_PREFIX = /usr/local/$(SPK_NAME)
-
 POST_STRIP_TARGET = icecast_extra_install
 
 BUSYBOX_CONFIG = usrmng daemon
 ENV += BUSYBOX_CONFIG="$(BUSYBOX_CONFIG)"
+
 
 include ../../mk/spksrc.spk.mk
 
