@@ -1,6 +1,6 @@
 SPK_NAME = postgresql
-SPK_VERS = 12.6
-SPK_REV = 2
+SPK_VERS = 13.2
+SPK_REV = 3
 SPK_ICON = src/postgresql.png
 
 DEPENDS = cross/$(SPK_NAME)
