@@ -6,7 +6,7 @@ SVC_WRITE_PID=y
 
 service_postinst ()
 {
-    # replace / character in the folder name 
+    # replace / character in the folder name to allow search/replace by sed
     echo "${wizard_music_folder}" | sed -e  "s/\//\\\\\//g" >/tmp/wizard_music_folder_value
     MUSICFOLDER=`cat /tmp/wizard_music_folder_value`
 
