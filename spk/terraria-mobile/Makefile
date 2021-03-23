@@ -15,7 +15,7 @@ HOMEPAGE = https://terraria.org
 SERVICE_USER = auto
 SERVICE_SETUP = src/service-setup.sh
 SERVICE_PORT = 7777
-STARTABLE = no
+STARTABLE = yes
 
 FWPORTS = src/terraria.sc
 
@@ -26,3 +26,4 @@ include ../../mk/spksrc.spk.mk
 .PHONY: terraria_extra_install
 terraria_extra_install:
 	chmod -R 755 ${STAGING_DIR}/ServerLinux
+	cp src/SynoWorld.wld ${STAGING_DIR}
