@@ -32,7 +32,7 @@ HOMEPAGE = https://github.com/SynoCommunity/spksrc/wiki/FAQ-SynoCliNet
 LICENSE  = Each tool is licensed under it\'s respective license.
 
 SPK_COMMANDS = bin/screen
-SPK_LINKS = /usr/local/bin/tmux:bin/tmux-utf8
+SPK_LOCAL_LINKS = /usr/local/bin/tmux:bin/tmux-utf8
 SPK_COMMANDS += bin/nmap bin/nping bin/ndiff
 SPK_COMMANDS += bin/arp-scan bin/arp-fingerprint bin/get-iab bin/get-oui
 SPK_COMMANDS += bin/links
