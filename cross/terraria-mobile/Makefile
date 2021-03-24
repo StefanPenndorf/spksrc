@@ -5,7 +5,7 @@ PKG_DIST_NAME = MobileTerrariaServer.zip
 PKG_DIST_SITE = https://terraria.org/server
 PKG_DIR = terraria
 
-DEPENDS =
+DEPENDS = 
 
 HOMEPAGE = https://terraria.org
 

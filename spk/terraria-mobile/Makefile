@@ -3,7 +3,7 @@ SPK_VERS = 1.4.1
 SPK_REV = 1
 SPK_ICON = src/terraria.png
 
-DEPENDS = cross/$(SPK_NAME)
+DEPENDS = cross/$(SPK_NAME) cross/screen
 
 MAINTAINER = DigitalBox
 DESCRIPTION = Construct the world you desire! From simple dwellings to immense fortresses to intricate machinery, the choice is yours! Become the architect of your very own world!
@@ -18,6 +18,8 @@ SERVICE_PORT = 7777
 STARTABLE = yes
 
 FWPORTS = src/terraria.sc
+
+SPK_COMMANDS = bin/screen
 
 POST_STRIP_TARGET = terraria_extra_install
 
