@@ -5,7 +5,7 @@ PACKAGE="debian-chroot"
 DNAME="Debian Chroot"
 
 # Others
-INSTALL_DIR="/usr/local/${PACKAGE}"
+INSTALL_DIR="/var/packages/${PACKAGE}/target"
 PATH="${INSTALL_DIR}/bin:${PATH}"
 CHROOTTARGET=`realpath ${INSTALL_DIR}/var/chroottarget`
 

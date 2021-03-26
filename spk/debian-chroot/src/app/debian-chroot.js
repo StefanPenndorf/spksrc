@@ -8,7 +8,7 @@ _V = function (category, element) {
 
 // Direct API
 Ext.Direct.addProvider({
-    "url": "3rdparty/debian-chroot/debian-chroot.cgi/direct/router",
+    "url": "/webman/3rdparty/debian-chroot/debian-chroot.cgi/direct/router",
     "namespace": "SYNOCOMMUNITY.DebianChroot.Remote",
     "type": "remoting",
     "actions": {
@@ -51,7 +51,7 @@ Ext.Direct.addProvider({
 });
 SYNOCOMMUNITY.DebianChroot.Poller = new Ext.direct.PollingProvider({
     'type': 'polling',
-    'url': '3rdparty/debian-chroot/debian-chroot.cgi/direct/poller',
+    'url': '/webman/3rdparty/debian-chroot/debian-chroot.cgi/direct/poller',
     'interval': 10000
 });
 Ext.Direct.addProvider(SYNOCOMMUNITY.DebianChroot.Poller);
@@ -100,11 +100,11 @@ SYNOCOMMUNITY.DebianChroot.AppWindow = Ext.extend(SYNO.SDS.AppWindow, {
         SYNOCOMMUNITY.DebianChroot.AppWindow.superclass.onRequest.call(this, a);
     },
     onClose: function () {
-        if (SYNOCOMMUNITY.DebianChroot.AppWindow.superclass.onClose.apply(this, arguments)) {
+        //if (SYNOCOMMUNITY.DebianChroot.AppWindow.superclass.onClose.apply(this, arguments)) {
             this.doClose();
             this.mainPanel.onDeactivate();
             return true;
-        }
+        //}
         return false;
     },
     setStatus: function (status) {

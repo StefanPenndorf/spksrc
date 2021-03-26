@@ -1,4 +1,4 @@
-#!/usr/local/debian-chroot/env/bin/python
+#!/var/packages/python/target/bin/python
 from application.direct import Services
 
 

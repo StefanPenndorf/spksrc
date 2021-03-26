@@ -1,4 +1,4 @@
-#!/usr/local/debian-chroot/env/bin/python
+#!/var/packages/python/target/bin/python
 from application.auth import requires_auth
 from application.direct import Base, Overview
 from flask import Flask, request, Response

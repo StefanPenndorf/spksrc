@@ -1,6 +1,6 @@
 SPK_NAME = debian-chroot
-SPK_VERS = 8.4
-SPK_REV = 7
+SPK_VERS = 10.8
+SPK_REV = 8
 SPK_ICON = src/debian.png
 DSM_UI_DIR = app
 
@@ -10,12 +10,11 @@ SPK_DEPENDS = "python>=2.7.6-8"
 
 UNSUPPORTED_ARCHS = $(PPC_ARCHS) $(ARMv8_ARCHS)
 
-MAINTAINER = Diaoul
+MAINTAINER = DigitalBox
 DESCRIPTION = Debian is a free operating system \(OS\) that comes with over 29000 packages, precompiled software bundled up in a nice format for easy installation on your DiskStation. Debian Chroot allows you to benefit from the Debian OS inside your DiskStation, alongside DSM. This package is intended for advanced users only.
 DESCRIPTION_FRE = Debian est un système d\'exploitation \(SE\) qui rend disponible plus de 29000 paquets, logiciels précompilés et empaquetés dans un joli format pour rendre son installation facile sur votre DiskStation. Debian Chroot vous permet de bénéficier du SE Debian au sein de votre DiskStation, aux cotés de DSM. Ce paquet est destiné aux utilisateurs avancés uniquement.
 RELOAD_UI = yes
 DISPLAY_NAME = Debian Chroot
-CHANGELOG = "1. Update to 8.4<br>2. Use amd64 for x86-64 archs"
 
 HOMEPAGE = https://www.debian.org
 LICENSE  = https://www.debian.org/legal/licenses
@@ -53,13 +52,13 @@ ifeq ($(strip $(DEBIAN_ARCH)),)
 $(error Arch $(ARCH) not supported)
 endif
 
-
 include ../../mk/spksrc.spk.mk
 
 .PHONY: debian-chroot_extra_install
 debian-chroot_extra_install:
 	install -m 755 -d $(STAGING_DIR)/var
-	debootstrap --foreign --arch $(DEBIAN_ARCH) jessie $(STAGING_DIR)/var/chroottarget "http://ftp.debian.org/debian"
+	# to check why --foreign --arch options doesn't work properly
+	debootstrap stable $(STAGING_DIR)/var/chroottarget 
 	install -m 644 src/sources.list $(STAGING_DIR)/var/chroottarget/etc/apt/sources.list.default
 	install -m 644 src/preferences $(STAGING_DIR)/var/chroottarget/etc/apt/preferences.default
 	install -m 644 src/policy-rc.d $(STAGING_DIR)/var/chroottarget/usr/sbin/policy-rc.d

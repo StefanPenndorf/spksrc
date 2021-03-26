@@ -11,7 +11,7 @@ __all__ = ['Base', 'engine', 'Session', 'Service', 'setup']
 
 
 Base = declarative_base()
-engine = create_engine('sqlite:////usr/local/debian-chroot/var/debian-chroot.db', echo=False)
+engine = create_engine('sqlite:////var/packages/debian-chroot/target/var/debian-chroot.db', echo=False)
 Session = sessionmaker(bind=engine)
 
 

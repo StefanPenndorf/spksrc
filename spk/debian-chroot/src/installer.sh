@@ -5,8 +5,8 @@ PACKAGE="debian-chroot"
 DNAME="Debian Chroot"
 
 # Others
-INSTALL_DIR="/usr/local/${PACKAGE}"
-PYTHON_DIR="/usr/local/python"
+INSTALL_DIR="/var/packages/${PACKAGE}/target"
+PYTHON_DIR="/var/packages/python/target/"
 CHROOTTARGET="${INSTALL_DIR}/var/chroottarget"
 PATH="${INSTALL_DIR}/bin:${INSTALL_DIR}/env/bin:${PYTHON_DIR}/bin:${PATH}"
 CHROOT_PATH="/usr/local/bin:/usr/bin:/bin"
@@ -21,7 +21,7 @@ preinst ()
 postinst ()
 {
     # Link
-    ln -s ${SYNOPKG_PKGDEST} ${INSTALL_DIR}
+    #ln -s ${SYNOPKG_PKGDEST} ${INSTALL_DIR}
 
     # Create a Python virtualenv
     ${VIRTUALENV} --system-site-packages ${INSTALL_DIR}/env > /dev/null
@@ -55,7 +55,7 @@ preuninst ()
 postuninst ()
 {
     # Remove link
-    rm -f ${INSTALL_DIR}
+    #rm -f ${INSTALL_DIR}
 
     exit 0
 }
@@ -63,9 +63,9 @@ postuninst ()
 preupgrade ()
 {
     # Save some stuff
-    rm -fr ${TMP_DIR}/${PACKAGE}
-    mkdir -p ${TMP_DIR}/${PACKAGE}
-    mv ${INSTALL_DIR}/var ${TMP_DIR}/${PACKAGE}/
+    #rm -fr ${TMP_DIR}/${PACKAGE}
+    #mkdir -p ${TMP_DIR}/${PACKAGE}
+    #mv ${INSTALL_DIR}/var ${TMP_DIR}/${PACKAGE}/
 
     exit 0
 }
@@ -73,9 +73,9 @@ preupgrade ()
 postupgrade ()
 {
     # Restore some stuff
-    rm -fr ${INSTALL_DIR}/var
-    mv ${TMP_DIR}/${PACKAGE}/var ${INSTALL_DIR}/
-    rm -fr ${TMP_DIR}/${PACKAGE}
+    #rm -fr ${INSTALL_DIR}/var
+    #mv ${TMP_DIR}/${PACKAGE}/var ${INSTALL_DIR}/
+    #rm -fr ${TMP_DIR}/${PACKAGE}
 
     exit 0
 }
