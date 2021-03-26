@@ -1,4 +1,4 @@
-#!/var/packagers/python/target/bin/python
+#!/var/packages/python/target/bin/python
 from application.direct import Services
 
 
