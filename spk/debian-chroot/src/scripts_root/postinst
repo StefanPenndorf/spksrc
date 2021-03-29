@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# Package
+PACKAGE="debian-chroot"
+DNAME="Debian Chroot"
+
+# Others
+INSTALL_DIR="/var/packages/${PACKAGE}/target"
+CHROOTTARGET="${INSTALL_DIR}/var/chroottarget"
+PATH="${INSTALL_DIR}/bin:${INSTALL_DIR}/env/bin:${PYTHON_DIR}/bin:${PATH}"
+CHROOT_PATH="/usr/local/bin:/usr/bin:/bin"
+
+# Debootstrap second stage in the background and configure the chroot environment
+#chroot ${CHROOTTARGET}/ /debootstrap/debootstrap --second-stage > /dev/null 2>&1 
+mv ${CHROOTTARGET}/etc/apt/sources.list.default ${CHROOTTARGET}/etc/apt/sources.list 
+mv ${CHROOTTARGET}/etc/apt/preferences.default ${CHROOTTARGET}/etc/apt/preferences 
+touch ${INSTALL_DIR}/var/installed 
+chmod 666 ${CHROOTTARGET}/dev/null
+chmod 666 ${CHROOTTARGET}/dev/tty
+chmod 777 ${CHROOTTARGET}/tmp
+cp /etc/hosts /etc/hostname /etc/resolv.conf ${CHROOTTARGET}/etc/

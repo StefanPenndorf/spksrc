@@ -2,11 +2,9 @@ SPK_NAME = debian-chroot
 SPK_VERS = 10.8
 SPK_REV = 8
 SPK_ICON = src/debian.png
-DSM_UI_DIR = app
 
 DEPENDS =
 WHEELS = pyextdirect==0.3.1 flask Werkzeug Jinja2 itsdangerous
-SPK_DEPENDS = "python>=2.7.6-8"
 
 UNSUPPORTED_ARCHS = $(PPC_ARCHS) $(ARMv8_ARCHS)
 
@@ -21,7 +19,7 @@ LICENSE  = https://www.debian.org/legal/licenses
 HELPURL  = https://github.com/SynoCommunity/spksrc/wiki/Debian-Chroot
 
 INSTALLER_SCRIPT = src/installer.sh
-SSS_SCRIPT       = src/dsm-control.sh
+STARTABLE = no
 
 INSTALL_PREFIX = /usr/local/$(SPK_NAME)
 
@@ -57,7 +55,7 @@ include ../../mk/spksrc.spk.mk
 .PHONY: debian-chroot_extra_install
 debian-chroot_extra_install:
 	install -m 755 -d $(STAGING_DIR)/var
-	# to check why --foreign --arch options doesn't work properly
+	# FIXME : to replace with --foreign --arch options for other archs than amd64
 	debootstrap stable $(STAGING_DIR)/var/chroottarget 
 	install -m 644 src/sources.list $(STAGING_DIR)/var/chroottarget/etc/apt/sources.list.default
 	install -m 644 src/preferences $(STAGING_DIR)/var/chroottarget/etc/apt/preferences.default
@@ -77,3 +75,6 @@ debian-chroot_extra_install:
 		install -m 755 -d $(STAGING_DIR)/app/texts/$${language}; \
 		install -m 644 src/app/texts/$${language}/strings $(STAGING_DIR)/app/texts/$${language}/strings; \
 	done
+	install -m 755 -d $(STAGING_DIR)/scripts_root
+	install -m 755 src/scripts_root/start-stop-status $(STAGING_DIR)/scripts_root/start-stop-status
+	install -m 755 src/scripts_root/postinst $(STAGING_DIR)/scripts_root/postinst

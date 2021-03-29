@@ -12,35 +12,17 @@ CHROOTTARGET=`realpath ${INSTALL_DIR}/var/chroottarget`
 
 start_daemon ()
 {
-    # Mount if install is finished
-    if [ -f ${INSTALL_DIR}/var/installed ]; then
-        # Make sure we don't mount twice
-        grep -q "${CHROOTTARGET}/proc " /proc/mounts || mount -t proc proc ${CHROOTTARGET}/proc
-        grep -q "${CHROOTTARGET}/sys " /proc/mounts || mount -t sysfs sys ${CHROOTTARGET}/sys
-        grep -q "${CHROOTTARGET}/dev " /proc/mounts || mount -o bind /dev ${CHROOTTARGET}/dev
-        grep -q "${CHROOTTARGET}/dev/pts " /proc/mounts || mount -o bind /dev/pts ${CHROOTTARGET}/dev/pts
-        
-        # Start all services
-        ${INSTALL_DIR}/app/start.py
-    fi
+    return
 }
 
 stop_daemon ()
 {
-    # Stop running services
-    ${INSTALL_DIR}/app/stop.py
-
-    # Unmount
-    umount ${CHROOTTARGET}/dev/pts
-    umount ${CHROOTTARGET}/dev
-    umount ${CHROOTTARGET}/sys
-    umount ${CHROOTTARGET}/proc
+    return
 }
 
 daemon_status ()
 {
-	return
-    #`grep -q "${CHROOTTARGET}/proc " /proc/mounts` && `grep -q "${CHROOTTARGET}/sys " /proc/mounts` && `grep -q "${CHROOTTARGET}/dev " /proc/mounts` && `grep -q "${CHROOTTARGET}/dev/pts " /proc/mounts`
+    return
 }
 
 
