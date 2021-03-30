@@ -16,7 +16,6 @@ DISPLAY_NAME = Debian Chroot
 
 HOMEPAGE = https://www.debian.org
 LICENSE  = https://www.debian.org/legal/licenses
-HELPURL  = https://github.com/SynoCommunity/spksrc/wiki/Debian-Chroot
 
 INSTALLER_SCRIPT = src/installer.sh
 STARTABLE = no

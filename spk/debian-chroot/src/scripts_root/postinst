@@ -10,8 +10,7 @@ CHROOTTARGET="${INSTALL_DIR}/var/chroottarget"
 PATH="${INSTALL_DIR}/bin:${INSTALL_DIR}/env/bin:${PYTHON_DIR}/bin:${PATH}"
 CHROOT_PATH="/usr/local/bin:/usr/bin:/bin"
 
-# Debootstrap second stage in the background and configure the chroot environment
-#chroot ${CHROOTTARGET}/ /debootstrap/debootstrap --second-stage > /dev/null 2>&1 
+# Configure the chroot environment
 mv ${CHROOTTARGET}/etc/apt/sources.list.default ${CHROOTTARGET}/etc/apt/sources.list 
 mv ${CHROOTTARGET}/etc/apt/preferences.default ${CHROOTTARGET}/etc/apt/preferences 
 touch ${INSTALL_DIR}/var/installed 

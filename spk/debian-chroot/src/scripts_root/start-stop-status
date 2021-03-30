@@ -19,22 +19,25 @@ start_daemon ()
         grep -q "${CHROOTTARGET}/sys " /proc/mounts || mount -t sysfs sys ${CHROOTTARGET}/sys
         grep -q "${CHROOTTARGET}/dev " /proc/mounts || mount -o bind /dev ${CHROOTTARGET}/dev
         grep -q "${CHROOTTARGET}/dev/pts " /proc/mounts || mount -o bind /dev/pts ${CHROOTTARGET}/dev/pts
+	# Add additional mount below if needed
         
-        # Start all services
-        #${INSTALL_DIR}/app/start.py
+        # Start all services :
+        # to add in DSM via task scheduler with root user
     fi
 }
 
 stop_daemon ()
 {
-    # Stop running services
-    #${INSTALL_DIR}/app/stop.py
+    # Stop running services :
+    # to add in DSM via task scheduler with root user
 
     # Unmount
     umount ${CHROOTTARGET}/dev/pts
     umount ${CHROOTTARGET}/dev
     umount ${CHROOTTARGET}/sys
     umount ${CHROOTTARGET}/proc
+    # Additional unmount if needed
+
 }
 
 daemon_status ()
