@@ -19,6 +19,9 @@ SERVICE_SETUP = src/service-setup.sh
 SERVICE_PORT = 3000
 STARTABLE = yes
 
+# Pure NodeJS package, make sure ARCH is not defined
+override ARCH=
+
 FWPORTS = src/snek.sc
 
 include ../../mk/spksrc.spk.mk
