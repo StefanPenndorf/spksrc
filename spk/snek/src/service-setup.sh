@@ -7,7 +7,7 @@ service_postinst ()
 {
 	# Install for NodeJS
 	cd ${SYNOPKG_PKGDEST}
-	npm install
+	npm install &> /dev/null
 
 	# Copy JS file to correct directory for running
 	cp ${SYNOPKG_PKGDEST}/node_modules/socket.io-client/dist/socket.io.js ${SYNOPKG_PKGDEST}/node_modules/socket.io-client/
