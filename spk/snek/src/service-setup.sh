@@ -12,6 +12,6 @@ service_postinst ()
 	# Copy JS file to correct directory for running
 	cp ${SYNOPKG_PKGDEST}/node_modules/socket.io-client/dist/socket.io.js ${SYNOPKG_PKGDEST}/node_modules/socket.io-client/
 
-	echo "Installation completed"
+	echo "Installation completed. You can connect Snek game server via Chrome to your Synology 3000 port : http://NAS_IP:3000"
 }
 
