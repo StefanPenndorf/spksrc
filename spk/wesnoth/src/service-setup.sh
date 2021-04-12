@@ -4,10 +4,4 @@ SVC_BACKGROUND=y
 SVC_WRITE_PID=y
 
 
-service_postinst ()
-{
-
-}
-
-
 
