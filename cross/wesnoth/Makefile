@@ -27,5 +27,5 @@ wesnoth-configure:
 
 wesnoth-install:
 	@$(MSG) "Wesnoth install for $(NAME)"
-	$(RUN) make COPYDIR=$(STAGING_INSTALL_PREFIX)
+	$(RUN) make install DESTDIR=$(STAGING_INSTALL_PREFIX)
 
