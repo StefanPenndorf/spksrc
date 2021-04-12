@@ -2,7 +2,7 @@
     "step_title": "Setting Wesnoth server",
     "items": [{
         "type": "password",
-        "desc": "Admin's password.",
+        "desc": "Admin's password. Defaults to changeme",
         "subitems": [{
             "key": "wizard_wn_password",
             "desc": "Password",
