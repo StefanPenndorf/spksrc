@@ -1,0 +1,13 @@
+[{
+    "step_title": "Setting Wesnoth server",
+    "items": [{
+        "type": "password",
+        "desc": "Admin's password.",
+        "subitems": [{
+            "key": "wizard_wn_password",
+            "desc": "Password",
+            "defaultValue": "changeme"
+        }]
+    }]
+
+}]
