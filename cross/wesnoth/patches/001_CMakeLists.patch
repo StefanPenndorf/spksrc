@@ -1,0 +1,11 @@
+--- ./CMakeLists-orig.txt	2021-04-12 11:45:24.295289520 +0200
++++ ./src/CMakeLists.txt	2021-04-12 11:42:38.839297931 +0200
+@@ -1,6 +1,8 @@
+ 
+ set(CXX_FLAGS_PROJECT "${CXX_FLAGS_PROJECT} -include boost-patched/bind/arg.hpp")
+ 
++set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lssl -lcrypto")
++
+ # store the specified sources list in the specified variable
+ function(GetSources source_list store_in_var)
+ 	file(STRINGS "../source_lists/${source_list}" sources)
