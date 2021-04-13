@@ -1,6 +1,6 @@
 SPK_NAME = wesnoth
-SPK_VERS = 1.14.15
-SPK_REV = 2
+SPK_VERS = 1.14.16
+SPK_REV = 3
 SPK_ICON = src/wesnoth.png
 
 DEPENDS = cross/$(SPK_NAME) 
