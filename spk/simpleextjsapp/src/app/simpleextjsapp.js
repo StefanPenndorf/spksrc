@@ -39,7 +39,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
 	onSureBtnClick: function() {
 		//window.alert('Button click');
 		Ext.Ajax.request({
-			url: '/webman/3rdparty/debian-chroot/test.cgi',
+			url: '/webman/3rdparty/simpleextjsapp/test.cgi',
 			method: 'GET',
 			timeout: 60000,
 			params: {

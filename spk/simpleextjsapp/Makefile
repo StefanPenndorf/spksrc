@@ -14,6 +14,9 @@ DISPLAY_NAME = SimpleExtJSApp
 
 HOMEPAGE = https://github.com/DigitalBox98/SimpleExtJSApp
 
+SERVICE_USER   = auto
+SERVICE_SETUP  = src/service-setup.sh
+
 POST_STRIP_TARGET = simpleextjsapp_extra_install
 
 include ../../mk/spksrc.spk.mk
