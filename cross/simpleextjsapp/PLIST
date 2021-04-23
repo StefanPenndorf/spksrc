@@ -1,5 +1,5 @@
 bin:bin/test.cgi
-rsc:rsc:web/docs/app-0c945a27f43452df695771ddb60b3d14.js
+rsc:web/docs/app-0c945a27f43452df695771ddb60b3d14.js
 rsc:web/docs/data-eefa3e533b0fb783b4f57755af8b783d.js
 rsc:web/docs/eg-iframe.html
 rsc:web/docs/extjs/ext-all.js
