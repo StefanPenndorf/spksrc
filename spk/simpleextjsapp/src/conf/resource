@@ -4,11 +4,27 @@
       {
         "service": "simpleextjsapp",
         "display_name": "SimpleExtJSApp",
-	"support_alias": true,
-	"support_server": true,
         "type": "static",
         "root": "simpleextjsapp",
+        "backend": 2,
         "icon": "app/images/simpleextjsapp-{0}.png"
+      }
+    ],
+    "migrate": {
+      "root": [
+        {
+          "old": "simpleextjsapp",
+          "new": "simpleextjsapp"
+        }
+      ]
+    },
+    "portals": [
+      {
+        "service": "simpleextjsapp",
+        "type": "alias",
+        "name": "SynoExtJS API Docs",
+        "alias": "simpleextjsapp",
+        "app": "com.synocommunity.packages.simpleextjsapp"
       }
     ],
     "pkg_dir_prepare": [

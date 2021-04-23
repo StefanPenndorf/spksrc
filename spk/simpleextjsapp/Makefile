@@ -14,8 +14,15 @@ DISPLAY_NAME = SimpleExtJSApp
 
 HOMEPAGE = https://github.com/DigitalBox98/SimpleExtJSApp
 
-#CONF_DIR = src/conf
-#SYSTEM_GROUP = http
+ADMIN_URL = /simpleextjsapp/
+
+#SPK_DEPENDS = "WebStation>=2.1.0:PHP7.4>=7.4.0:Apache2.4>=2.4.0"
+#INSTALL_DEP_SERVICES = apache-web
+#START_DEP_SERVICES = apache-web
+#INSTUNINST_RESTART_SERVICES = apache-web
+
+CONF_DIR = src/conf
+SYSTEM_GROUP = http
 
 SERVICE_USER   = auto
 SERVICE_SETUP  = src/service-setup.sh
