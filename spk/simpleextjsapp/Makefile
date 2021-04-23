@@ -14,6 +14,9 @@ DISPLAY_NAME = SimpleExtJSApp
 
 HOMEPAGE = https://github.com/DigitalBox98/SimpleExtJSApp
 
+#CONF_DIR = src/conf
+#SYSTEM_GROUP = http
+
 SERVICE_USER   = auto
 SERVICE_SETUP  = src/service-setup.sh
 

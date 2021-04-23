@@ -1,0 +1,24 @@
+{
+  "webservice": {
+    "services": [
+      {
+        "service": "simpleextjsapp",
+        "display_name": "SimpleExtJSApp",
+	"support_alias": true,
+	"support_server": true,
+        "type": "static",
+        "root": "simpleextjsapp",
+        "icon": "app/images/simpleextjsapp-{0}.png"
+      }
+    ],
+    "pkg_dir_prepare": [
+      {
+        "source": "/var/packages/simpleextjsapp/target/web/docs/",
+        "target": "simpleextjsapp",
+        "mode": "0755",
+        "user": "sc-simpleextjsapp",
+        "group": "http"
+      }
+    ]
+  }
+}
