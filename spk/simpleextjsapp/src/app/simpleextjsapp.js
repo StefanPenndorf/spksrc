@@ -45,11 +45,11 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                 hideLabel: true,
                 items: [{
                     xtype: 'syno_displayfield',
-                    value: 'Button :',
+                    value: 'CGI in C :',
                 }, {
                     xtype: "syno_button",
                     btnStyle: "blue",
-                    text: 'Click to call Server CGI ',
+                    text: 'Call Server CGI ',
                     handler: this.onSureBtnClick.bind(this)
                 }]
             },
@@ -62,29 +62,41 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
             title: "GUI components ",
             collapsible: false,
             items: [
-	          {
+
+                {
+                xtype: "syno_compositefield",
+                hideLabel: true,
+                items: [{
+                    xtype: 'syno_displayfield',
+                    value: 'Button Field :'
+                	}, {
+                    xtype: "syno_button",
+                    text: "Confirm"
+                	}]
+                },
+                {
                 xtype: "syno_compositefield",
                 hideLabel: true,
                 items: [{
                     xtype: 'syno_displayfield',
                     value: 'Text Field :'
-                }, {
+                	}, {
                     xtype: "syno_textfield",
                     fieldLabel: "TextField: ",
                     value: "Text"
-                }]
-		      },
-              {
+                	}]
+		},
+              	{
                 xtype: "syno_compositefield",
                 hideLabel: true,
                 items: [{
                     xtype: 'syno_displayfield',
                     value: 'CheckBox :'
-                }, {
+                	}, {
                     xtype: "syno_checkbox",
                     boxLabel: "Activate option"
-                }]
-              }
+                	}]
+              	}
 
             ]
         });

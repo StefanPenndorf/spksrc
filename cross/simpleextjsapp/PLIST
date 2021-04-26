@@ -1,6 +1,6 @@
 bin:bin/test.cgi
 rsc:web/docs/app-0c945a27f43452df695771ddb60b3d14.js
-rsc:web/docs/data-eefa3e533b0fb783b4f57755af8b783d.js
+rsc:web/docs/data-d72e6642c69bd21d4a1eb116d2da95b4.js
 rsc:web/docs/eg-iframe.html
 rsc:web/docs/extjs/ext-all.js
 rsc:web/docs/extjs/resources/themes/images/default/boundlist/trigger-arrow.png
@@ -382,8 +382,12 @@ rsc:web/docs/member-icons/event.png
 rsc:web/docs/member-icons/method.png
 rsc:web/docs/member-icons/property.png
 rsc:web/docs/output/Ext.Button.js
+rsc:web/docs/output/Ext.form.Checkbox.js
+rsc:web/docs/output/Ext.form.DisplayField.js
 rsc:web/docs/output/global.js
 rsc:web/docs/output/SYNO.ux.Button.js
+rsc:web/docs/output/SYNO.ux.Checkbox.js
+rsc:web/docs/output/SYNO.ux.DisplayField.js
 rsc:web/docs/resources/css/app-4689d2a5522dcd3c9e9923ca59c33f27.css
 rsc:web/docs/resources/images/ajax-loader.gif
 rsc:web/docs/resources/images/arrows.png
@@ -429,6 +433,8 @@ rsc:web/docs/resources/images/x.png
 rsc:web/docs/resources/prettify/prettify.css
 rsc:web/docs/resources/prettify/prettify.js
 rsc:web/docs/source/Button.html
+rsc:web/docs/source/Checkbox.html
+rsc:web/docs/source/DisplayField.html
 rsc:web/docs/source/ext-all.html
 rsc:web/docs/source/ext-base.html
 rsc:web/docs/source/sds.css.html
