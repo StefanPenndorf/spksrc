@@ -21,8 +21,8 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
 			resizable: true,
 			maximizable: true,
 			minimizable: true,
-			width: 600,
-			height: 400,
+			width: 640,
+			height: 640,
 			items: [
 			{
 				xtype: 'syno_displayfield',
@@ -46,14 +46,39 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                 items: [{
                     xtype: 'syno_displayfield',
                     value: 'CGI in C :',
-                }, {
+					}, {
                     xtype: "syno_button",
                     btnStyle: "blue",
-                    text: 'Call Server CGI ',
-                    handler: this.onSureBtnClick.bind(this)
-                }]
-            },
-
+                    text: 'Call C CGI ',
+                    handler: this.onCGIClick.bind(this)
+					}]
+				},
+			    {
+                xtype: "syno_compositefield",
+                hideLabel: true,
+                items: [{
+                    xtype: 'syno_displayfield',
+                    value: 'CGI in Perl :',
+					}, {
+                    xtype: "syno_button",
+                    btnStyle: "blue",
+                    text: 'Call Perl CGI ',
+                    handler: this.onPerlCGIClick.bind(this)
+					}]
+				},
+			    {
+                xtype: "syno_compositefield",
+                hideLabel: true,
+                items: [{
+                    xtype: 'syno_displayfield',
+                    value: 'CGI in Python :',
+					}, {
+                    xtype: "syno_button",
+                    btnStyle: "blue",
+                    text: 'Call Python CGI ',
+                    handler: this.onPythonCGIClick.bind(this)
+					}]
+				}
 			]
         });
 	},
@@ -85,7 +110,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                     fieldLabel: "TextField: ",
                     value: "Text"
                 	}]
-		},
+				},
               	{
                 xtype: "syno_compositefield",
                 hideLabel: true,
@@ -101,9 +126,55 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
             ]
         });
     },
-	onSureBtnClick: function() {
+	onCGIClick: function() {
 		Ext.Ajax.request({
 			url: '/webman/3rdparty/simpleextjsapp/test.cgi',
+			method: 'GET',
+			timeout: 60000,
+			params: {
+				id: 1 // loads results whose Id is 1
+			},
+			headers: {
+				'Content-Type': 'text/html'
+			},
+			success: function(response) {
+				var result = response.responseText;
+				window.alert('CGI called : ' + result);
+			},
+			failure: function(response) {
+				window.alert('Request Failed.');
+
+			}
+
+		});
+
+	},
+	onPythonCGIClick: function() {
+		Ext.Ajax.request({
+			url: '/webman/3rdparty/simpleextjsapp/python.cgi',
+			method: 'GET',
+			timeout: 60000,
+			params: {
+				id: 1 // loads results whose Id is 1
+			},
+			headers: {
+				'Content-Type': 'text/html'
+			},
+			success: function(response) {
+				var result = response.responseText;
+				window.alert('CGI called : ' + result);
+			},
+			failure: function(response) {
+				window.alert('Request Failed.');
+
+			}
+
+		});
+
+	},
+	onPerlCGIClick: function() {
+		Ext.Ajax.request({
+			url: '/webman/3rdparty/simpleextjsapp/perl.cgi',
 			method: 'GET',
 			timeout: 60000,
 			params: {
