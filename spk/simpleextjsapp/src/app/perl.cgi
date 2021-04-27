@@ -1,7 +1,16 @@
 #!/usr/bin/perl
-use File::Copy;
 
 print "Content-type: text/html\n\n";
 
-print "OK perl. FIXME: authentication to add!";
+$user =  `/usr/syno/synoman/webman/modules/authenticate.cgi`;
+
+if ($user eq "")
+{
+  print "User not authenticated\n";
+}
+else
+{
+  print "User authenticated : $user\n";
+}
+
 

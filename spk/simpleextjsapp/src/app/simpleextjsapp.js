@@ -139,7 +139,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
 			},
 			success: function(response) {
 				var result = response.responseText;
-				window.alert('CGI called : ' + result);
+				window.alert('C CGI called : ' + result);
 			},
 			failure: function(response) {
 				window.alert('Request Failed.');
@@ -162,7 +162,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
 			},
 			success: function(response) {
 				var result = response.responseText;
-				window.alert('CGI called : ' + result);
+				window.alert('Python CGI called : ' + result);
 			},
 			failure: function(response) {
 				window.alert('Request Failed.');
@@ -185,7 +185,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
 			},
 			success: function(response) {
 				var result = response.responseText;
-				window.alert('CGI called : ' + result);
+				window.alert('Perl CGI called : ' + result);
 			},
 			failure: function(response) {
 				window.alert('Request Failed.');

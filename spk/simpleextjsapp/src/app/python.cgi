@@ -1,4 +1,14 @@
 #!/usr/bin/python
 
+import os, sys
+
 print("Content-type: text/html\n")
-print("OK python. FIXME: authentication to add!")
+
+f = os.popen('/usr/syno/synoman/webman/modules/authenticate.cgi','r')
+user = f.read()
+
+if len(user)>0:
+    print("User authenticated : "+user)
+else:
+    print ("No user authenticated")
+
