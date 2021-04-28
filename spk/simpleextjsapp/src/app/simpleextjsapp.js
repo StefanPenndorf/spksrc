@@ -46,9 +46,10 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                 items: [{
                     xtype: 'syno_displayfield',
                     value: 'CGI in C :',
+		    width: 100
 					}, {
                     xtype: "syno_button",
-                    btnStyle: "blue",
+                    btnStyle: "green",
                     text: 'Call C CGI ',
                     handler: this.onCGIClick.bind(this)
 					}]
@@ -59,9 +60,10 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                 items: [{
                     xtype: 'syno_displayfield',
                     value: 'CGI in Perl :',
+		    width: 100
 					}, {
                     xtype: "syno_button",
-                    btnStyle: "blue",
+                    btnStyle: "red",
                     text: 'Call Perl CGI ',
                     handler: this.onPerlCGIClick.bind(this)
 					}]
@@ -72,6 +74,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                 items: [{
                     xtype: 'syno_displayfield',
                     value: 'CGI in Python :',
+		    width: 100
 					}, {
                     xtype: "syno_button",
                     btnStyle: "blue",
