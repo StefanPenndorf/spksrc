@@ -10,6 +10,8 @@ DEPENDS =
 HOMEPAGE = https://github.com/DigitalBox98/
 COMMENT  = A simple ExtJS Application for DSM 7.0
 
+GNU_CONFIGURE = 1
+
 INSTALL_TARGET = simpleextjsapp_install
 
 include ../../mk/spksrc.cross-cc.mk

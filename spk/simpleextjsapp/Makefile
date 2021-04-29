@@ -6,9 +6,9 @@ DSM_UI_DIR = app
 
 DEPENDS = cross/$(SPK_NAME)
 
-MAINTAINER = DigitalBox
+MAINTAINER = DigitalBox98
+
 DESCRIPTION = Simple Ext JS Application demo
-RELOAD_UI = yes
 STARTABLE = no
 DISPLAY_NAME = SimpleExtJSApp
 
