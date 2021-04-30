@@ -23,7 +23,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
 
             // Tab for CGI calls
             allTabs.push({
-                title: "CGI Call",
+                title: "Server Calls",
                 layout: "fit",
                 items: [
                     this.createDisplayCall()
@@ -152,11 +152,48 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                         xtype: "syno_checkbox",
                         boxLabel: "Activate option"
                     }]
+                },
+                {
+                    xtype: "syno_compositefield",
+                    hideLabel: true,
+                    items: [{
+                        xtype: 'syno_displayfield',
+                        value: 'ComboBox :'
+                    }, {
+						xtype: "syno_combobox",
+						store: this.createTimeItemStore("min"),
+						displayField: "display",
+						itemId: "minute",
+						valueField: "value",
+						value: 0,
+						triggerAction: "all",
+						width: 145,
+						mode: "local",
+						editable: false
+					}]
                 }
-
             ]
         });
-    },
+    }, 
+    createTimeItemStore: function(e) {
+		var a = [];
+		var c = {
+			hour: 24,
+			min: 60
+		};
+		if (e in c) {
+			for (var d = 0; d < c[e]; d++) {
+				a.push([d, String.leftPad(String(d), 2, "0")])
+			}
+			var b = new Ext.data.SimpleStore({
+				id: 0,
+				fields: ["value", "display"],
+				data: a
+			});
+			return b
+		}
+		return null
+	},
     onCGIClick: function() {
         Ext.Ajax.request({
             url: '/webman/3rdparty/simpleextjsapp/test.cgi',
