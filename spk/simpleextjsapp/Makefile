@@ -2,6 +2,7 @@ SPK_NAME = simpleextjsapp
 SPK_VERS = 0.2
 SPK_REV = 2
 SPK_ICON = src/simpleextjsapp.png
+WIZARDS_DIR = WIZARD_UIFILES
 DSM_UI_DIR = app
 
 DEPENDS = cross/$(SPK_NAME)
