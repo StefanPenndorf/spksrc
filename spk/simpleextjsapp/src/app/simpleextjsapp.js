@@ -21,12 +21,12 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
         this.tabs = (function() {
             var allTabs = [];
 
-            // Tab for CGI calls
+            // Tab for CGI or API calls
             allTabs.push({
                 title: "Server Calls",
-                layout: "fit",
                 items: [
-                    this.createDisplayCall()
+                    this.createDisplayCGI(),
+                    this.createDisplayAPI()
                 ]
             });
 
@@ -64,9 +64,9 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
 
         this.callParent([config]);
     },
-    createDisplayCall: function() {
+    createDisplayCGI: function() {
         return new SYNO.ux.FieldSet({
-            title: "Call to CGI or API",
+            title: "Call to CGI",
             collapsible: false,
             items: [{
                     xtype: "syno_compositefield",
@@ -74,7 +74,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                     items: [{
                         xtype: 'syno_displayfield',
                         value: 'CGI in C :',
-                        width: 110
+                        width: 140
                     }, {
                         xtype: "syno_button",
                         btnStyle: "green",
@@ -88,7 +88,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                     items: [{
                         xtype: 'syno_displayfield',
                         value: 'CGI in Perl :',
-                        width: 110
+                        width: 140
                     }, {
                         xtype: "syno_button",
                         btnStyle: "red",
@@ -102,7 +102,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                     items: [{
                         xtype: 'syno_displayfield',
                         value: 'CGI in Python :',
-                        width: 110
+                        width: 140
                     }, {
                         xtype: "syno_button",
                         btnStyle: "blue",
@@ -116,7 +116,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                     items: [{
                         xtype: 'syno_displayfield',
                         value: 'CGI in bash :',
-                        width: 110
+                        width: 140
                     }, {
                         xtype: "syno_button",
                         text: 'Call bash CGI ',
@@ -124,6 +124,26 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                     }]
                 }
             ]
+        });
+    },
+    createDisplayAPI: function() {
+        return new SYNO.ux.FieldSet({
+            title: "Call to API",
+            collapsible: false,
+            items: [{
+                xtype: "syno_compositefield",
+                hideLabel: true,
+                items: [{
+                    xtype: 'syno_displayfield',
+                    value: 'SYNO.Core.System :',
+                    width: 140
+                }, {
+                    xtype: "syno_button",
+                    btnStyle: "green",
+                    text: 'Call API ',
+                    handler: this.onAPIClick.bind(this)
+                }]
+            }]
         });
     },
     createDisplayGUI: function() {
@@ -227,6 +247,30 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
             return b
         }
         return null
+    },
+    onAPIClick: function() {
+        var t = this.getBaseURL({
+            api: "SYNO.Core.System",
+            method: "info",
+            version: 3
+        });
+        Ext.Ajax.request({
+            url: t,
+            method: 'GET',
+            timeout: 60000,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            success: function(response) {
+                var result = Ext.decode(response.responseText).data.cpu_clock_speed;
+                window.alert('API called : cpu clock speed = ' + result);
+            },
+            failure: function(response) {
+                window.alert('Request Failed.');
+
+            }
+        });
+
     },
     onBashCGIClick: function() {
         Ext.Ajax.request({
