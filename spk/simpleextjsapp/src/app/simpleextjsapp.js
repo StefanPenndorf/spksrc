@@ -129,7 +129,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
     },
     createDisplayAPI: function() {
         return new SYNO.ux.FieldSet({
-            title: "Call to API",
+            title: "Call to Syno API",
             collapsible: true,
             items: [{
                 xtype: "syno_compositefield",
