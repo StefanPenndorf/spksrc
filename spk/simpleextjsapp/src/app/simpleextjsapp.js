@@ -26,7 +26,8 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                 title: "Server Calls",
                 items: [
                     this.createDisplayCGI(),
-                    this.createDisplayAPI()
+                    this.createDisplayAPI(),
+                    this.createDisplayExternalAPI()
                 ]
             });
 
@@ -143,6 +144,26 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                     btnStyle: "green",
                     text: 'Call API ',
                     handler: this.onAPIClick.bind(this)
+                }]
+            }]
+        });
+    },
+    createDisplayExternalAPI: function() {
+        return new SYNO.ux.FieldSet({
+            title: "Call to external API",
+            collapsible: true,
+            items: [{
+                xtype: "syno_compositefield",
+                hideLabel: true,
+                items: [{
+                    xtype: 'syno_displayfield',
+                    value: 'www.boredapi.com :',
+                    width: 140
+                }, {
+                    xtype: "syno_button",
+                    btnStyle: "green",
+                    text: 'Words of Day',
+                    handler: this.onExternalAPIClick.bind(this)
                 }]
             }]
         });
@@ -319,7 +340,6 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
             ]
         });
     },
-
     createTimeItemStore: function(e) {
         var a = [];
         var c = {
@@ -364,6 +384,28 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
             }
         });
 
+    },
+    onExternalAPIClick: function() {
+        Ext.Ajax.request({
+            url: '/webman/3rdparty/simpleextjsapp/externalapi.cgi',
+            method: 'GET',
+            timeout: 60000,
+            params: {
+                id: 1 // add params if needed
+            },
+            headers: {
+                'Content-Type': 'text/html'
+            },
+            success: function(response) {
+                var result = response.responseText;
+                window.alert('External API called : ' + result);
+            },
+            failure: function(response) {
+                window.alert('Request Failed.');
+
+            }
+
+        });
     },
     onBashCGIClick: function() {
         Ext.Ajax.request({
