@@ -50,6 +50,16 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                 ]
             });
 
+            // Tab for User interaction
+            allTabs.push({
+                title: "User interaction",
+                layout: "fit",
+                items: [
+                    this.createInteraction()
+                ]
+            });
+
+
             return allTabs;
         }).call(this);
 
@@ -362,8 +372,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
             title: "Standard",
             collapsible: true,
             autoHeight: true,
-            items: [
-                {
+            items: [{
                     xtype: "syno_compositefield",
                     hideLabel: true,
                     items: [{
@@ -413,6 +422,76 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
             ]
         });
     },
+
+    // Create the display of User Interaction
+    createInteraction: function() {
+        return new SYNO.ux.FieldSet({
+            title: "Standard",
+            collapsible: true,
+            autoHeight: true,
+            items: [{
+                    xtype: "syno_compositefield",
+                    hideLabel: true,
+                    items: [{
+                            xtype: 'syno_displayfield',
+                            value: 'ModalWindow :',
+                            width: 100
+                        },
+                        {
+                            xtype: "syno_button",
+                            text: 'Open window',
+                            handler: this.onModalButtonClick.bind(this)
+                        }
+
+
+                    ]
+                }
+
+
+
+            ]
+        });
+    },
+
+    // Handle display for ModalWindow
+    onModalButtonClick: function() {
+
+        var window = new SYNO.SDS.ModalWindow({
+            closeAction: "hide",
+            layout: "fit",
+            width: 400,
+            height: 200,
+            resizable: !1,
+            title: "Modal Window",
+            buttons: [{
+                text: "Close",
+                handler: function() {
+                    window.close();
+                }
+            }, {
+                text: "Confirm",
+                itemId: "confirm",
+                btnStyle: "blue",
+                handler: function() {
+                    window.close();
+                }
+            }],
+            items: [
+                {
+
+                    xtype: 'syno_displayfield',
+                    value: 'Message for the user',
+
+                }
+
+            ],
+
+        });
+        window.open();
+
+
+    },
+
     // Create the content for the ComboBox
     createTimeItemStore: function(e) {
         var a = [];
