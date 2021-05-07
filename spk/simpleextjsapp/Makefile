@@ -9,7 +9,7 @@ DEPENDS = cross/$(SPK_NAME)
 
 MAINTAINER = DigitalBox98
 
-DESCRIPTION = Simple Ext JS Application demo
+DESCRIPTION = SimpleExtJS Application demo to illustrate the usage of Syno ExtJS framework for DSM applications. This package is for experienced users.
 STARTABLE = no
 DISPLAY_NAME = SimpleExtJSApp
 
