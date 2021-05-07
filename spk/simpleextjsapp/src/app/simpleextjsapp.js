@@ -198,6 +198,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
             autoHeight: true,
             items: [
 
+                // Button
                 {
                     xtype: "syno_compositefield",
                     hideLabel: true,
@@ -211,7 +212,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                     }]
                 },
 
-
+                // TextField
                 {
                     xtype: "syno_compositefield",
                     hideLabel: true,
@@ -225,6 +226,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                         value: "Text"
                     }]
                 },
+                // Checkbox
                 {
                     xtype: "syno_compositefield",
                     hideLabel: true,
@@ -237,6 +239,72 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                         boxLabel: "Activate option"
                     }]
                 },
+                // DateTime
+                {
+                    xtype: "syno_compositefield",
+                    hideLabel: true,
+                    items: [{
+                            xtype: 'syno_displayfield',
+                            value: 'DateTime :',
+                            width: 100
+                        },
+                        {
+                            xtype: "syno_datetimefield",
+                            name: "searchdatefrom",
+                            editable: !1,
+                            emptyText: "date_from",
+                            hideClearButton: !0,
+                            listeners: {
+                                select: function(e, t) {
+                                    // put logic here 
+                                }
+                            }
+                        }
+                    ]
+                },
+                // Date
+                {
+                    xtype: "syno_compositefield",
+                    hideLabel: true,
+                    items: [{
+                            xtype: 'syno_displayfield',
+                            value: 'Date :',
+                            width: 100
+                        },
+                        {
+                            xtype: "syno_datefield",
+                            name: "searchddateto",
+                            editable: !1,
+                            emptyText: "date_to",
+                            hideClearButton: !0,
+                            listeners: {
+                                select: function(e, t) {
+                                    // put logic here 
+                                }
+                            }
+                        }
+                    ]
+                },
+                // NumberField
+                {
+                    xtype: "syno_compositefield",
+                    hideLabel: true,
+                    items: [{
+                            xtype: 'syno_displayfield',
+                            value: 'Number :',
+                            width: 100
+                        },
+                        {
+                            xtype: "syno_numberfield",
+                            name: "columnNumber",
+                            value: "45",
+                            width: 60,
+                            minValue: 2,
+                            maxValue: 512
+                        }
+                    ]
+                },
+                // Combobox            
                 {
                     xtype: "syno_compositefield",
                     hideLabel: true,
@@ -257,6 +325,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                         editable: false
                     }]
                 },
+                // TextArea
                 {
                     xtype: "syno_compositefield",
                     hideLabel: true,
@@ -274,6 +343,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                         selectOnFocus: !0
                     }]
                 },
+                // Radio Button
                 {
                     xtype: "syno_compositefield",
                     hideLabel: true,
@@ -313,7 +383,31 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
             collapsible: true,
             autoHeight: true,
             items: [
-
+                // SplitButton
+                {
+                    xtype: "syno_compositefield",
+                    hideLabel: true,
+                    items: [{
+                            xtype: 'syno_displayfield',
+                            value: 'SplitButton',
+                            width: 100
+                        },
+                        {
+                            xtype: "syno_splitbutton",
+                            text: "export",
+                            menu: {
+                                items: [{
+                                    text: "HTML type",
+                                    handler: {}
+                                }, {
+                                    text: "CSV_type",
+                                    handler: {}
+                                }]
+                            }
+                        }
+                    ]
+                },
+                // ColorField
                 {
                     xtype: "syno_compositefield",
                     hideLabel: true,
@@ -329,8 +423,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                         }
                     ]
                 },
-
-
+                // Switch
                 {
                     xtype: "syno_compositefield",
                     hideLabel: true,
@@ -345,7 +438,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                         }
                     ]
                 },
-
+                // TimeField
                 {
                     xtype: "syno_compositefield",
                     hideLabel: true,
@@ -476,8 +569,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                     window.close();
                 }
             }],
-            items: [
-                {
+            items: [{
 
                     xtype: 'syno_displayfield',
                     value: 'Message for the user',
