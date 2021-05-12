@@ -38,6 +38,8 @@ simpleextjsapp_extra_install:
 	install -m 644 src/app/config $(STAGING_DIR)/app/config
 	install -m 644 src/app/simpleextjsapp.js $(STAGING_DIR)/app/simpleextjsapp.js
 	install -m 644 src/app/helptoc.conf $(STAGING_DIR)/app/helptoc.conf
+	install -m 755 src/app/createsqlitedata.py $(STAGING_DIR)/app/createsqlitedata.py
+	install -m 755 src/app/pythonsynoapi.cgi $(STAGING_DIR)/app/pythonsynoapi.cgi
 	install -m 755 -d $(STAGING_DIR)/app/help
 	for language in enu fre; do \
 		install -m 755 -d $(STAGING_DIR)/app/help/$${language}; \

@@ -779,7 +779,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
     // Create JSON Store grid calling python API  
     createGrid: function() {
 
-        var localUrl = "/webman/3rdparty/simpleextjsapp/pythonapi.cgi";
+        var localUrl = "/webman/3rdparty/simpleextjsapp/pythonsynoapi.cgi";
 
         var gridStore = new SYNO.API.JsonStore({
             autoDestroy: true,
@@ -791,10 +791,10 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                 name: 'identifier',
                 type: 'int'
             }, {
-                name: 'title',
+                name: 'pkg_name',
                 type: 'string'
             }, {
-                name: 'description',
+                name: 'pkg_desc',
                 type: 'string'
             }]
         });
@@ -817,16 +817,16 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                 },
                 columns: [{
                     header: "identifier",
-                    width: 75,
+                    width: 20,
                     dataIndex: "identifier"
                 }, {
-                    header: "title",
-                    width: 100,
-                    dataIndex: "title"
+                    header: "pkg_name",
+                    width: 50,
+                    dataIndex: "pkg_name"
                 }, {
-                    header: "description",
-                    width: 75,
-                    dataIndex: "description"
+                    header: "pkg_desc",
+                    width: 300,
+                    dataIndex: "pkg_desc"
                 }]
             }),
             viewConfig: {
