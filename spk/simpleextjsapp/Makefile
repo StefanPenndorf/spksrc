@@ -34,6 +34,7 @@ simpleextjsapp_extra_install:
 	install -m 755 src/app/python.cgi $(STAGING_DIR)/app/python.cgi
 	install -m 755 src/app/bash.cgi $(STAGING_DIR)/app/bash.cgi
 	install -m 755 src/app/externalapi.cgi $(STAGING_DIR)/app/externalapi.cgi
+	install -m 755 src/app/pythonapi.cgi $(STAGING_DIR)/app/pythonapi.cgi
 	install -m 644 src/app/config $(STAGING_DIR)/app/config
 	install -m 644 src/app/simpleextjsapp.js $(STAGING_DIR)/app/simpleextjsapp.js
 	install -m 644 src/app/helptoc.conf $(STAGING_DIR)/app/helptoc.conf
