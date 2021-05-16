@@ -34,12 +34,13 @@ simpleextjsapp_extra_install:
 	install -m 755 src/app/python.cgi $(STAGING_DIR)/app/python.cgi
 	install -m 755 src/app/bash.cgi $(STAGING_DIR)/app/bash.cgi
 	install -m 755 src/app/externalapi.cgi $(STAGING_DIR)/app/externalapi.cgi
-	install -m 755 src/app/pythonapi.cgi $(STAGING_DIR)/app/pythonapi.cgi
+	install -m 755 src/app/storepythonsqlapi.cgi $(STAGING_DIR)/app/storepythonapi.cgi
 	install -m 644 src/app/config $(STAGING_DIR)/app/config
 	install -m 644 src/app/simpleextjsapp.js $(STAGING_DIR)/app/simpleextjsapp.js
 	install -m 644 src/app/helptoc.conf $(STAGING_DIR)/app/helptoc.conf
-	install -m 755 src/app/createsqlitedata.py $(STAGING_DIR)/app/createsqlitedata.py
-	install -m 755 src/app/pythonsynoapi.cgi $(STAGING_DIR)/app/pythonsynoapi.cgi
+	install -m 755 src/app/createsqlitedata.sql $(STAGING_DIR)/app/createsqlitedata.sql
+	install -m 755 src/app/storepythonsynoapi.cgi $(STAGING_DIR)/app/storepythonsynoapi.cgi
+	install -m 755 src/app/storebashratesapi.cgi $(STAGING_DIR)/app/storebashratesapi.cgi
 	install -m 755 -d $(STAGING_DIR)/app/help
 	for language in enu fre; do \
 		install -m 755 -d $(STAGING_DIR)/app/help/$${language}; \

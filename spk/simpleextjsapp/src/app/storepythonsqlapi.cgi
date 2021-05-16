@@ -8,7 +8,7 @@ print("Content-type: application/json\n")
 f = os.popen('/usr/syno/synoman/webman/modules/authenticate.cgi','r')
 user = f.read()
 
-con = sqlite3.connect('api.db')
+con = sqlite3.connect('/var/packages/simpleextjsapp/home/api.db')
 cur = con.cursor();
 
 # check user is authenticated

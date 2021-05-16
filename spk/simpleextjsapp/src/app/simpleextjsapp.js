@@ -64,7 +64,9 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                 title: "Stores",
                 layout: "fit",
                 items: [
-                    this.createGrid()
+                    this.createSynoStore(),
+					this.createRatesStore(),
+					this.createSqlStore()
                 ]
             });
 
@@ -776,10 +778,30 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
         return toolbar;
     },
 
+    // Create the display of Syno Store
+    createSynoStore: function() {
+        return new SYNO.ux.FieldSet({
+            title: "Python Syno Store",
+            collapsible: true,
+            autoHeight: true,
+            items: [{
+                    xtype: "syno_compositefield",
+                    hideLabel: true,
+                    items: [
+						this.createGrid()
+                    ]
+                }
+
+
+
+            ]
+        });
+    },
+	
     // Create JSON Store grid calling python API  
     createGrid: function() {
 
-        var localUrl = "/webman/3rdparty/simpleextjsapp/pythonsynoapi.cgi";
+        var localUrl = "/webman/3rdparty/simpleextjsapp/storepythonsynoapi.cgi";
 
         var gridStore = new SYNO.API.JsonStore({
             autoDestroy: true,
@@ -864,10 +886,218 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
 
     },
 
+    // Create the display of Rates Store
+    createRatesStore: function() {
+        return new SYNO.ux.FieldSet({
+            title: "Bash Rates Store",
+            collapsible: true,
+            autoHeight: true,
+            items: [{
+                    xtype: "syno_compositefield",
+                    hideLabel: true,
+                    items: [
+						this.createRatesGrid()
+                    ]
+                }
 
 
+
+            ]
+        });
+    },
+
+    // Create JSON Store grid calling bash API  
+    createRatesGrid: function() {
+
+        var localUrl = "/webman/3rdparty/simpleextjsapp/storebashratesapi.cgi";
+
+        var gridStore = new SYNO.API.JsonStore({
+            autoDestroy: true,
+            url: localUrl,
+            restful: true,
+            root: 'result',
+            idProperty: 'key',
+            fields: [{
+                name: 'key',
+                type: 'string'
+            }, {
+                name: 'value',
+                type: 'string'
+            }]
+        });
+
+        var paging = new SYNO.ux.PagingToolbar({
+            store: gridStore,
+            displayInfo: true,
+            pageSize: 5,
+            refreshText: "Reload"
+        });
+
+        var c = {
+            store: gridStore,
+            colModel: new Ext.grid.ColumnModel({
+                defaults: {
+                    sortable: true,
+                    menuDisabled: true,
+                    width: 100,
+                    height: 20
+                },
+                columns: [{
+                    header: "key",
+                    width: 40,
+                    dataIndex: "key"
+                }, {
+                    header: "value",
+                    width: 60,
+                    dataIndex: "value"
+                }]
+            }),
+            viewConfig: {
+                forceFit: true,
+                onLoad: Ext.emptyFn,
+                listeners: {
+                    beforerefresh: function(f) {
+                        f.scrollTop = f.scroller.dom.scrollTop;
+                    },
+                    refresh: function(f) {
+                        f.scroller.dom.scrollTop = f.scrollTop;
+                    }
+                }
+            },
+            columnLines: true,
+            frame: false,
+            bbar: paging,
+            height: 200,
+            cls: "resource-monitor-performance",
+            listeners: {
+                scope: this,
+                render: function(grid) {
+                    grid.getStore().load({
+                        params: {
+                            offset: 0,
+                            limit: 5
+                        }
+                    });
+                }
+            }
+        };
+
+
+        return new SYNO.ux.GridPanel(c);
+
+    },
+
+    // Create the display of SQL Store
+    createSqlStore: function() {
+        return new SYNO.ux.FieldSet({
+            title: "Python SQL Store",
+            collapsible: true,
+            autoHeight: true,
+            items: [{
+                    xtype: "syno_compositefield",
+                    hideLabel: true,
+                    items: [
+						this.createSqlGrid()
+                    ]
+                }
+
+
+
+            ]
+        });
+    },
+
+    // Create JSON Store grid calling python SQL API  
+    createSqlGrid: function() {
+
+        var localUrl = "/webman/3rdparty/simpleextjsapp/storepythonsqlapi.cgi";
+
+        var gridStore = new SYNO.API.JsonStore({
+            autoDestroy: true,
+            url: localUrl,
+            restful: true,
+            root: 'result',
+            idProperty: 'identifier',
+            fields: [{
+                name: 'identifier',
+                type: 'int'
+            }, {
+                name: 'title',
+                type: 'string'
+            }, {
+                name: 'description',
+                type: 'string'
+            }]
+        });
+
+        var paging = new SYNO.ux.PagingToolbar({
+            store: gridStore,
+            displayInfo: true,
+            pageSize: 5,
+            refreshText: "Reload"
+        });
+
+        var c = {
+            store: gridStore,
+            colModel: new Ext.grid.ColumnModel({
+                defaults: {
+                    sortable: true,
+                    menuDisabled: true,
+                    width: 180,
+                    height: 20
+                },
+                columns: [{
+                    header: "identifier",
+                    width: 20,
+                    dataIndex: "identifier"
+                }, {
+                    header: "title",
+                    width: 60,
+                    dataIndex: "title"
+                }, {
+                    header: "description",
+                    width: 100,
+                    dataIndex: "description"
+                }]
+            }),
+            viewConfig: {
+                forceFit: true,
+                onLoad: Ext.emptyFn,
+                listeners: {
+                    beforerefresh: function(f) {
+                        f.scrollTop = f.scroller.dom.scrollTop;
+                    },
+                    refresh: function(f) {
+                        f.scroller.dom.scrollTop = f.scrollTop;
+                    }
+                }
+            },
+            columnLines: true,
+            frame: false,
+            bbar: paging,
+            height: 200,
+            cls: "resource-monitor-performance",
+            listeners: {
+                scope: this,
+                render: function(grid) {
+                    grid.getStore().load({
+                        params: {
+                            offset: 0,
+                            limit: 5
+                        }
+                    });
+                }
+            }
+        };
+
+
+        return new SYNO.ux.GridPanel(c);
+
+    },
+	
     onOpen: function(a) {
         SYNOCOMMUNITY.SimpleExtJSApp.AppWindow.superclass.onOpen.call(this, a);
 
     }
 });
+
