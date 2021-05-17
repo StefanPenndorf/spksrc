@@ -28,7 +28,7 @@ if len(user)>0:
 
 # reject in case of no authentication
 else:
-    print ("No user authenticated")
+    print ("Security : no user authenticated")
 
 con.close()
 

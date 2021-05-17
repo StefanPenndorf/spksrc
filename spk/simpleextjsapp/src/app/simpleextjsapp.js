@@ -163,20 +163,39 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
         return new SYNO.ux.FieldSet({
             title: "Call to Syno API",
             collapsible: true,
-            items: [{
+            items: 
+			[
+				// Core System API
+				{
                 xtype: "syno_compositefield",
                 hideLabel: true,
                 items: [{
                     xtype: 'syno_displayfield',
-                    value: 'SYNO.Core.System :',
+                    value: 'Core.System',
                     width: 140
-                }, {
+                	}, {
                     xtype: "syno_button",
                     btnStyle: "green",
                     text: 'Call API ',
                     handler: this.onAPIClick.bind(this)
-                }]
-            }]
+                	}]
+             },
+			 // Core Storage API
+			 {
+			                 xtype: "syno_compositefield",
+			                 hideLabel: true,
+			                 items: [{
+			                     xtype: 'syno_displayfield',
+			                     value: 'Core.Storage.Volume',
+			                     width: 140
+			                 	}, {
+			                     xtype: "syno_button",
+			                     btnStyle: "green",
+			                     text: 'Call API ',
+			                     handler: this.onAPIStorageClick.bind(this)
+			                 	}]
+			              }
+			]
         });
     },
     // Create the display of external API calls
@@ -189,11 +208,11 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                 hideLabel: true,
                 items: [{
                     xtype: 'syno_displayfield',
-                    value: 'www.boredapi.com :',
+                    value: 'www.boredapi.com',
                     width: 140
                 }, {
                     xtype: "syno_button",
-                    btnStyle: "green",
+                    btnStyle: "orange",
                     text: 'Words of Day',
                     handler: this.onExternalAPIClick.bind(this)
                 }]
@@ -444,7 +463,8 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                         },
 
                         {
-                            xtype: "syno_switch"
+                            xtype: "syno_switch",
+							width: 80
                         }
                     ]
                 },
@@ -537,7 +557,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                     hideLabel: true,
                     items: [{
                             xtype: 'syno_displayfield',
-                            value: 'ModalWindow :',
+                            value: 'ModalWindow',
                             width: 100
                         },
                         {
@@ -565,9 +585,10 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
             width: 400,
             height: 200,
             resizable: !1,
-            title: "Modal Window",
+            title: "Make a choice",
             buttons: [{
-                text: "Close",
+                text: "Cancel",
+				// Handle Cancel
                 handler: function() {
                     window.close();
                 }
@@ -575,6 +596,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                 text: "Confirm",
                 itemId: "confirm",
                 btnStyle: "blue",
+				// Handle Confirm
                 handler: function() {
                     window.close();
                 }
@@ -582,7 +604,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
             items: [{
 
                     xtype: 'syno_displayfield',
-                    value: 'Message for the user',
+                    value: 'Do you want to continue the demo ?',
 
                 }
 
@@ -614,9 +636,9 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
         }
         return null
     },
-    // Call Syno API on click
+    // Call Syno Core API on click
     onAPIClick: function() {
-        var t = this.getBaseURL({
+        var t = this.getBaseURL({			
             api: "SYNO.Core.System",
             method: "info",
             version: 3
@@ -630,9 +652,42 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
             },
             success: function(response) {
                 var data = Ext.decode(response.responseText).data;
+				var cpu_family = data.cpu_family;
                 var cpu_clock = data.cpu_clock_speed;
+				var ram_size = data.ram_size;
+				var firmware_ver = data.firmware_ver;
                 var temp = data.sys_temp;
-                window.alert('API called : cpu clock speed = ' + cpu_clock + ' and temperature = ' + temp);
+                window.alert('API returned info : cpu family = ' + cpu_family + ', cpu clock speed = ' + cpu_clock + ', ram size = ' + ram_size + ', temperature = ' + temp + ', firmware ver = ' + firmware_ver);
+            },
+            failure: function(response) {
+                window.alert('Request Failed.');
+
+            }
+        });
+
+    },    
+	// Call Syno Storage API on click
+    onAPIStorageClick: function() {
+        var t = this.getBaseURL({			
+            api: "SYNO.Core.Storage.Volume",
+            method: "list",
+            params: {
+                limit: -1,
+                offset: 0,
+                location: "internal",
+                option: "include_cold_storage"
+            },
+            version: 1
+        });
+        Ext.Ajax.request({
+            url: t,
+            method: 'GET',
+            timeout: 60000,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            success: function(response) {
+				window.alert('API returned raw list  : ' + response.responseText);
             },
             failure: function(response) {
                 window.alert('Request Failed.');
@@ -701,7 +756,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
             },
             success: function(response) {
                 var result = response.responseText;
-                window.alert('C CGI called : ' + result);
+                window.alert('C CGI called :\n' + result);
             },
             failure: function(response) {
                 window.alert('Request Failed.');
@@ -725,7 +780,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
             },
             success: function(response) {
                 var result = response.responseText;
-                window.alert('Python CGI called : ' + result);
+                window.alert('Python CGI called :\n' + result);
             },
             failure: function(response) {
                 window.alert('Request Failed.');
@@ -749,7 +804,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
             },
             success: function(response) {
                 var result = response.responseText;
-                window.alert('Perl CGI called : ' + result);
+                window.alert('Perl CGI called :\n' + result);
             },
             failure: function(response) {
                 window.alert('Request Failed.');
@@ -781,7 +836,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
     // Create the display of Syno Store
     createSynoStore: function() {
         return new SYNO.ux.FieldSet({
-            title: "Python Syno Store",
+            title: "Python Package Store",
             collapsible: true,
             autoHeight: true,
             items: [{
@@ -838,15 +893,15 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                     height: 20
                 },
                 columns: [{
-                    header: "identifier",
+                    header: "Id",
                     width: 20,
                     dataIndex: "identifier"
                 }, {
-                    header: "pkg_name",
+                    header: "Pkg name",
                     width: 50,
                     dataIndex: "pkg_name"
                 }, {
-                    header: "pkg_desc",
+                    header: "Description",
                     width: 300,
                     dataIndex: "pkg_desc"
                 }]
@@ -939,16 +994,16 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                 defaults: {
                     sortable: true,
                     menuDisabled: true,
-                    width: 100,
+                    width: 80,
                     height: 20
                 },
                 columns: [{
-                    header: "key",
-                    width: 40,
+                    header: "Currency",
+                    width: 30,
                     dataIndex: "key"
                 }, {
-                    header: "value",
-                    width: 60,
+                    header: "EUR rate",
+                    width: 50,
                     dataIndex: "value"
                 }]
             }),
@@ -990,7 +1045,7 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
     // Create the display of SQL Store
     createSqlStore: function() {
         return new SYNO.ux.FieldSet({
-            title: "Python SQL Store",
+            title: "Python SQLite Store",
             collapsible: true,
             autoHeight: true,
             items: [{
@@ -1047,15 +1102,15 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
                     height: 20
                 },
                 columns: [{
-                    header: "identifier",
+                    header: "Id",
                     width: 20,
                     dataIndex: "identifier"
                 }, {
-                    header: "title",
+                    header: "Title",
                     width: 60,
                     dataIndex: "title"
                 }, {
-                    header: "description",
+                    header: "Description",
                     width: 100,
                     dataIndex: "description"
                 }]
@@ -1100,4 +1155,5 @@ Ext.define("SYNOCOMMUNITY.SimpleExtJSApp.AppWindow", {
 
     }
 });
+
 
