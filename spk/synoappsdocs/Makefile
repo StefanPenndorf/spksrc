@@ -1,6 +1,6 @@
 SPK_NAME = synoappsdocs
-SPK_VERS = 1.0
-SPK_REV = 1
+SPK_VERS = 1.1
+SPK_REV = 2
 SPK_ICON = src/synoappsdocs.png
 WIZARDS_DIR = WIZARD_UIFILES
 DSM_UI_DIR = app
