@@ -30,3 +30,4 @@ include ../../mk/spksrc.spk.mk
 dol_extra_install:
 	install -m 755 -d $(STAGING_DIR)/config
 	install -m 644 src/serverconfig.xml $(STAGING_DIR)/config/
+	install -m 644 src/public-db.sql $(STAGING_DIR)/config/

@@ -16,6 +16,22 @@
             "desc": "Password",
             "defaultValue": "changepassword"
         }]
+    }, {
+        "type": "textfield",
+        "desc": "MariaDB's port. Defaults to 3306",
+        "subitems": [{
+            "key": "wizard_sql_port",
+            "desc": "Port",
+            "defaultValue": "3306"
+        }]
+    }, {
+        "type": "textfield",
+        "desc": "Server local IP address. ",
+        "subitems": [{
+            "key": "wizard_ip_server",
+            "desc": "IP address",
+            "defaultValue": "192.168.1.20"
+        }]
     }]
 
 }]
