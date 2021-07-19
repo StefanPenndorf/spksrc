@@ -16,8 +16,17 @@ service_postinst ()
     # Create dol database if not exists
     mysql -u ${wizard_sql_username:=root} -p${wizard_sql_password:=changepassword} -P ${wizard_sql_port:=3306} -e 'create database if not exists dol'
 
-    # Fill database with data
-    mysql -u ${wizard_sql_username:=root} -p${wizard_sql_password:=changepassword} -P ${wizard_sql_port:=3306} -b dol < ${SYNOPKG_PKGDEST}/config/public-db.sql
+    # Fill database with Eve-of-Darkness data
+    if [ ${wizard_eve_data} == "true" ]; then
+        mysql -u ${wizard_sql_username:=root} -p${wizard_sql_password:=changepassword} -P ${wizard_sql_port:=3306} -b dol < ${SYNOPKG_PKGDEST}/config/public-db.sql
+    fi
 }
 
+service_postuninst ()
+{
+    # Remove database on request
+    if [ ${wizard_delete_data} == "true" ]; then
+        mysql -u ${wizard_sql_username:=root} -p${wizard_sql_password:=changepassword} -P ${wizard_sql_port:=3306} -e 'drop database dol'
+    fi
+}
 
