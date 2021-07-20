@@ -1,6 +1,6 @@
 SPK_NAME = dol
 SPK_VERS = 1.9.7
-SPK_REV = 1
+SPK_REV = 2
 SPK_ICON = src/dol.png
 DSM_UI_DIR = app
 
