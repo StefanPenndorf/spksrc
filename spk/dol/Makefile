@@ -6,6 +6,8 @@ DSM_UI_DIR = app
 
 DEPENDS  = cross/$(SPK_NAME)
 
+SPK_DEPENDS = "MariaDB10:mono"
+
 MAINTAINER = DigitalBox98
 DESCRIPTION = DOL Server is a server emulator for the game Dark Age of Camelot written by the Dawn of Light community
 
