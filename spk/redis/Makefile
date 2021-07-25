@@ -15,6 +15,8 @@ DISPLAY_NAME = redis
 
 CHANGELOG = "Update to version 6.2.5"
 
+WIZARDS_DIR = WIZARD_UIFILES
+
 # PPC archs except qoriq are not supported anymore
 UNSUPPORTED_ARCHS = $(OLD_PCC_ARCHS)
 
