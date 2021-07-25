@@ -9,8 +9,6 @@ DEPENDS = cross/$(SPK_NAME)
 MAINTAINER = DigitalBox
 DESCRIPTION = Redis is an open source, advanced key-value store. It is often referred to as a data structure server since keys can contain strings, hashes, lists, sets and sorted sets. Redis is written in ANSI C and works in most POSIX systems like Linux, *BSD, and OS X, without external dependencies. Linux and OS X are the two operating systems where Redis is developed and tested the most, and we recommend using Linux for deployment.
 
-RELOAD_UI = yes
-STARTABLE = yes
 DISPLAY_NAME = redis
 
 CHANGELOG = "Update to version 6.2.5"
@@ -21,13 +19,14 @@ UNSUPPORTED_ARCHS = $(OLD_PCC_ARCHS)
 HOMEPAGE = https://redis.io
 LICENSE  = 3-clause BSD
 
+STARTABLE = yes
 SERVICE_USER = auto
 SERVICE_SETUP = src/service-setup.sh
-NO_SERVICE_SHORTCUT = yes
-
-INSTALL_PREFIX = /usr/local/$(SPK_NAME)
 
 POST_STRIP_TARGET = redis_extra_install
+
+# add links for tools
+SPK_COMMANDS = bin/redis-benchmark bin/redis-check-aof bin/redis-check-rdb bin/redis-cli
 
 include ../../mk/spksrc.spk.mk
 
