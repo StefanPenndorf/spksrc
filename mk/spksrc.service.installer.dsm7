@@ -17,6 +17,7 @@ FWPORTS_FILE="/var/packages/${SYNOPKG_PKGNAME}/conf/${SYNOPKG_PKGNAME}.sc"
 
 TMP_DIR="${SYNOPKG_TEMP_UPGRADE_FOLDER}/var"
 
+
 install_log ()
 {
     local _msg_="$@"
