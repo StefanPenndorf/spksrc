@@ -50,7 +50,6 @@ call_func ()
 
 
 # Source package specific variables and functions
->>>>>>> master
 SVC_SETUP=`dirname $0`"/service-setup"
 if [ -r "${SVC_SETUP}" ]; then
     . "${SVC_SETUP}"
