@@ -1,5 +1,9 @@
 PKG_NAME = erlang
+<<<<<<< HEAD
 PKG_VERS = 23.2.5
+=======
+PKG_VERS = 23.3.4.1
+>>>>>>> master
 PKG_EXT = tar.gz
 PKG_DIST_NAME = OTP-$(PKG_VERS).$(PKG_EXT)
 PKG_DIST_SITE = https://github.com/erlang/otp/archive
@@ -32,7 +36,10 @@ erlang_pre_configure:
 .PHONY: erlang_configure
 erlang_configure:
 	$(RUN) ./otp_build configure $(CONFIGURE_ARGS)
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 
 .PHONY: erlang_install
 erlang_install:
