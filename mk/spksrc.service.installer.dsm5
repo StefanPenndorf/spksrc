@@ -13,11 +13,6 @@ INST_LOG="${SYNOPKG_PKGVAR}/${SYNOPKG_PKGNAME}_install.log"
 
 INST_ETC="/var/packages/${SYNOPKG_PKGNAME}/etc"
 INST_VARIABLES="${INST_ETC}/installer-variables"
-<<<<<<< HEAD:mk/spksrc.service.installer
-INST_VAR="${SYNOPKG_PKGDEST}/var"
-SYNOPKG_PKGVAR="${SYNOPKG_PKGDEST}/var" # backwards compatibility
-=======
->>>>>>> master:mk/spksrc.service.installer.dsm5
 
 # Optional FWPORTS file
 FWPORTS_FILE="/var/packages/${SYNOPKG_PKGNAME}/target/app/${SYNOPKG_PKGNAME}.sc"

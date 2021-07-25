@@ -1,16 +1,6 @@
 #!/bin/sh
 
 # DSM 5 -> 7 upgrade path:
-<<<<<<< HEAD
-# Not supported
-# DSM 6 -> 7 upgrade path:
-# files are migrated from ${SYNOPKG_PKGDEST}/var to ${SYNOPKG_PKGVAR}
-# Not supported (yet)
-
-INST_ETC="/var/packages/${SYNOPKG_PKGNAME}/etc"
-INST_VARIABLES="${INST_ETC}/installer-variables"
-INST_VAR="${SYNOPKG_PKGVAR}"
-=======
 # - Not supported
 # DSM 6 -> 7 upgrade path:
 # - files are migrated from ${SYNOPKG_PKGDEST}/var to ${SYNOPKG_PKGVAR}
@@ -21,16 +11,11 @@ INST_LOG="/var/log/packages/${SYNOPKG_PKGNAME}.log"
 
 INST_ETC="/var/packages/${SYNOPKG_PKGNAME}/etc"
 INST_VARIABLES="${INST_ETC}/installer-variables"
->>>>>>> master
 
 # Optional FWPORTS file
 FWPORTS_FILE="/var/packages/${SYNOPKG_PKGNAME}/conf/${SYNOPKG_PKGNAME}.sc"
 
 TMP_DIR="${SYNOPKG_TEMP_UPGRADE_FOLDER}/var"
-
-<<<<<<< HEAD
-# Source package specific variable and functions
-=======
 
 install_log ()
 {

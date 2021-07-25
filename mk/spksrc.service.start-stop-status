@@ -55,11 +55,7 @@ start_daemon ()
             else
                 SVC_CD="cd ${SVC_CWD}; "
             fi
-<<<<<<< HEAD
-            if [ -n "${SYNOPKG_DSM_VERSION_MAJOR}" ] && [ "$SYNOPKG_DSM_VERSION_MAJOR" -lt 7 ]; then
-=======
             if [ -n "${SYNOPKG_DSM_VERSION_MAJOR}" ] && [ "${SYNOPKG_DSM_VERSION_MAJOR}" -lt 7 ]; then
->>>>>>> master
                 SU="su ${EFF_USER} -s"
             else
                 SU=""
