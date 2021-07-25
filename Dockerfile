@@ -8,6 +8,7 @@ RUN dpkg --add-architecture i386
 
 # Install required packages (in sync with README.rst instructions)
 RUN apt-get update && apt-get install --no-install-recommends -y \
+		autoconf-archive \
 		autogen \
 		automake \
 		bc \
@@ -20,6 +21,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 		debootstrap \
 		ed \
 		expect \
+		fakeroot \
 		flex \
 		g++-multilib \
 		gawk \
