@@ -1,6 +1,6 @@
 SPK_NAME = sqlite
-SPK_VERS = 3.30.1
-SPK_REV = 1
+SPK_VERS = 3.36.0
+SPK_REV = 2
 SPK_ICON = src/sqlite3.png
 DSM_UI_DIR = app
 
