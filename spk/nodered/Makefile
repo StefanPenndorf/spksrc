@@ -1,6 +1,6 @@
 SPK_NAME = nodered
-SPK_VERS = 1.3.1
-SPK_REV = 1
+SPK_VERS = 2.0.3
+SPK_REV = 2
 SPK_ICON = src/nodered.png
 
 DEPENDS = cross/nodered
