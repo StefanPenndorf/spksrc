@@ -1,6 +1,4 @@
-SERVICE_COMMAND="screen -dmS terraria /bin/bash -c \"${SYNOPKG_PKGDEST}/ServerLinux/TerrariaServe
-r.bin.x86_64 -port 7777 -maxplayers 16 -world ${SYNOPKG_PKGHOME}/.local/share/Terraria/Mobile/Wor
-lds/SynoWorld.wld\""
+SERVICE_COMMAND="screen -dmS terraria /bin/bash -c \"${SYNOPKG_PKGDEST}/ServerLinux/TerrariaServer.bin.x86_64 -port 7777 -maxplayers 16 -world ${SYNOPKG_PKGHOME}/.local/share/Terraria/Mobile/Worlds/SynoWorld.wld\""
 SVC_BACKGROUND=n
 SVC_WRITE_PID=y
 SVC_CWD=${SYNOPKG_PKGHOME}
