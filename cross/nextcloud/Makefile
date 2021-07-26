@@ -1,5 +1,5 @@
 PKG_NAME = nextcloud
-PKG_VERS = 21.0.0
+PKG_VERS = 22.0.0
 PKG_EXT = zip
 PKG_DIST_NAME = $(PKG_NAME)-$(PKG_VERS).$(PKG_EXT)
 PKG_DIST_SITE = https://download.nextcloud.com/server/releases/
