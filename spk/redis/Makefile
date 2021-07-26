@@ -2,19 +2,18 @@ SPK_NAME = redis
 SPK_VERS = 6.2.5
 SPK_REV = 9
 SPK_ICON = src/redis.png
-DSM_UI_DIR = app
 
 DEPENDS = cross/$(SPK_NAME)
 
-MAINTAINER = DigitalBox
-DESCRIPTION = Redis is an open source, advanced key-value store. It is often referred to as a data structure server since keys can contain strings, hashes, lists, sets and sorted sets. Redis is written in ANSI C and works in most POSIX systems like Linux, *BSD, and OS X, without external dependencies. Linux and OS X are the two operating systems where Redis is developed and tested the most, and we recommend using Linux for deployment.
+MAINTAINER = DigitalBox98
+DESCRIPTION = Redis is an open source, advanced key-value store. It is often referred to as a data structure server since keys can contain strings, hashes, lists, sets and sorted sets.
 
 DISPLAY_NAME = redis
 
-CHANGELOG = "Update to version 6.2.5"
+CHANGELOG = "Update redis to v6.2.5"
 
 # PPC archs except qoriq are not supported anymore
-UNSUPPORTED_ARCHS = $(OLD_PCC_ARCHS)
+UNSUPPORTED_ARCHS = $(OLD_PPC_ARCHS)
 
 HOMEPAGE = https://redis.io
 LICENSE  = 3-clause BSD
