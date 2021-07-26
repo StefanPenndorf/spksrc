@@ -1,6 +1,6 @@
 SPK_NAME = minetest
-SPK_VERS = 5.4.0
-SPK_REV = 2
+SPK_VERS = 5.4.1
+SPK_REV = 3
 SPK_ICON = src/minetest.png
 
 DEPENDS = cross/$(SPK_NAME)
@@ -10,7 +10,8 @@ DESCRIPTION = Minetest is an infinite-world block sandbox game and game engine. 
 RELOAD_UI = yes
 STARTABLE = yes
 DISPLAY_NAME = Minetest
-CHANGELOG = "Update to version 5.4.0"
+
+CHANGELOG = "Update to version 5.4.1"
 
 HOMEPAGE = https://www.minetest.net/
 LICENSE  = GPLv2/GPLv3
