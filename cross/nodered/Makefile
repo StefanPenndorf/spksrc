@@ -1,5 +1,5 @@
 PKG_NAME = nodered
-PKG_VERS = 1.3.1
+PKG_VERS = 2.0.3
 PKG_EXT = zip
 PKG_DIST_NAME = node-red-${PKG_VERS}.${PKG_EXT}
 PKG_DIST_SITE = https://github.com/node-red/node-red/releases/download/${PKG_VERS}
