@@ -19,5 +19,6 @@ HOMEPAGE = https://www.vim.org/
 LICENSE  = Charityware
 
 SPK_COMMANDS = bin/vim bin/vim$(subst .,,$(SPK_VERS)) bin/view bin/vimdiff bin/rvim bin/rview bin/vimtutor
+SPK_USR_LOCAL_LINKS  = bin:bin/vim$(subst .,,$(SPK_VERS))
 
 include ../../mk/spksrc.spk.mk

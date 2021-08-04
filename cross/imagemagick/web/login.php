@@ -12,7 +12,7 @@
 
 <body>
   <center>
-	<h2><span class="label label-primary">Image Magick 7.0.10</span></h2>
+	<h2><span class="label label-primary">Image Magick</span></h2>
 	<img src="images/magick.png"> <br><br>
   </center>
 
