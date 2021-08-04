@@ -2,7 +2,7 @@ PKG_NAME = dol
 PKG_VERS = 1.9.7
 PKG_EXT = zip
 PKG_DIST_NAME = DOLServer_net45_Release.$(PKG_EXT)
-PKG_DIST_SITE = https://github.com/digitalbox94/DOLSharp-1127/releases/download/1.9.7.002
+PKG_DIST_SITE = https://github.com/digitalbox98/DOLSharp/releases/download/1.9.7.002
 PKG_DIR = $(PKG_NAME)-$(PKG_VERS)
 
 DEPENDS =
