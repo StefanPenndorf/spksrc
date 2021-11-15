@@ -21,6 +21,9 @@ TC_LDFLAGS = -L$(WORK_DIR)/$(TC_BASE_DIR)/$(TC_BASE_DIR)/sysroot/lib
 
 FIX_TARGET = myFix
 
+# ensure gnu/hard-float.h is used
+TC_EXTRA_CFLAGS = -D__ARM_PCS_VFP=1
+
 include ../../mk/spksrc.tc.mk
 
 .PHONY: myFix

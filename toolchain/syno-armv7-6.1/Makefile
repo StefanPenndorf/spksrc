@@ -1,7 +1,7 @@
 TC_NAME = syno-armv7
 
 # generic toolchain for arm7hf DSM
-TC_ARCH = armada370 armada375 armada38x alpine alpine4k armadaxp comcerto2k monaco
+TC_ARCH = alpine alpine4k armada370 armada375 armada38x armadaxp comcerto2k monaco
 TC_VERS = 6.1
 TC_OS_MIN_VER = 6.1-15047
 
@@ -20,6 +20,9 @@ TC_CXXFLAGS = -I$(WORK_DIR)/$(TC_BASE_DIR)/$(TC_BASE_DIR)/sysroot/usr/include
 TC_LDFLAGS = -L$(WORK_DIR)/$(TC_BASE_DIR)/$(TC_BASE_DIR)/sysroot/lib
 
 FIX_TARGET = custom_fix_target
+
+# ensure gnu/hard-float.h is used
+TC_EXTRA_CFLAGS = -D__ARM_PCS_VFP=1
 
 include ../../mk/spksrc.tc.mk
 
